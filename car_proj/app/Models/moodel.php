@@ -8,7 +8,7 @@ use App\Models\Advertisement;
 use App\Models\make_years;
 
 
-class moodel extends Models
+class moodel extends Model
 {
     use HasFactory;
      public $table = "model";
