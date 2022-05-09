@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use  App\Models\make;
 use App\Models\make_years;
 use  App\Models\moodel;
+use  App\Models\dealership;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
 
      // $models=  make::find(1)->models()->unique('name');
-     // foreach($models as $m)
-     // echo $m;
-
+    // foreach($models as $m)
+    // echo $m;
+      
         return view('dashboard');
     })->name('dashboard');
      Route::get('/order', function () {
