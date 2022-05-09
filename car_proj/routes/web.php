@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use  App\Models\make;
 use App\Models\make_years;
 use  App\Models\moodel;
@@ -26,7 +27,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
+
+    $user = Auth::user();
+    if($user->type()=='user'){
+
+      Route::get('/dashboard', function () {
 
      // $models=  make::find(1)->models()->unique('name');
     // foreach($models as $m)
@@ -34,6 +39,8 @@ Route::middleware([
       
         return view('dashboard');
     })->name('dashboard');
+    }
+    
      Route::get('/order', function () {
         return view('Advertisement');
     })->name('order');

@@ -16,8 +16,8 @@ class CreateMakeYearsTable extends Migration
         Schema::create('make_years', function (Blueprint $table) {
             $table->id();
             $table->year('year');
-            $table->unsignedBigInteger('model_id');
-            $table->foreign('model_id')->references('id')->on('model')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('make_id');
+            $table->foreign('make_id')->references('id')->on('make')->onUpdate('cascade')->onDelete('cascade');
             
           });
     }
