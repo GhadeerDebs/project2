@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDealershipIdToUsersTable extends Migration
+class AddPhoneToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,8 @@ class AddDealershipIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('dealership_id')->nullable();
-            $table->foreign('dealership_id')->references('id')->on('dealership')->onUpdate('cascade')->onDelete('cascade');
-            
+            $table->integer('phone')->nullable();
         });
-        
     }
 
     /**
@@ -29,7 +26,7 @@ class AddDealershipIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-              $table->dropColumn('dealership_id');
+            $table->dropColumn('phone');
         });
     }
 }

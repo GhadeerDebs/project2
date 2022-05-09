@@ -12,5 +12,8 @@ class Equipment extends Model
     use HasFactory;
      public $table = "equipment";
 
+     public function Advertisement(){
+         return $this->belongsTo(Advertisement::class);
+    }
 
 }

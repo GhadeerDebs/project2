@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDealershipIdToUsersTable extends Migration
+class CreateAppoinementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class AddDealershipIdToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('appoinement', function (Blueprint $table) {
+            $table->id();
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->date('appoinment_date');
             $table->unsignedBigInteger('dealership_id')->nullable();
             $table->foreign('dealership_id')->references('id')->on('dealership')->onUpdate('cascade')->onDelete('cascade');
-            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
         });
-        
     }
 
     /**
@@ -28,8 +33,6 @@ class AddDealershipIdToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-              $table->dropColumn('dealership_id');
-        });
+        Schema::dropIfExists('appoinement');
     }
 }

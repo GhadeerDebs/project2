@@ -9,6 +9,7 @@ use App\Models\moodel;
 use App\Models\Picture;
 use App\Models\Equipment;
 use App\Models\EN_Equipment;
+use App\Models\User;
 
 class Advertisement extends Model
 {
@@ -35,8 +36,10 @@ class Advertisement extends Model
 
           return $this->hasMany(EN_Equipment::class);
     }
+    public function users_save(){
 
+         return $this->belongsToMany(User::class,'favorite');
 
-    
+    }
     
 }
