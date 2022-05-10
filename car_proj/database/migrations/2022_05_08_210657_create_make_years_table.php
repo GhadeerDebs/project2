@@ -18,7 +18,7 @@ class CreateMakeYearsTable extends Migration
             $table->year('year');
             $table->unsignedBigInteger('make_id');
             $table->foreign('make_id')->references('id')->on('make')->onUpdate('cascade')->onDelete('cascade');
-            
+
           });
     }
 
