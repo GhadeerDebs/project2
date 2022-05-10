@@ -21,27 +21,26 @@ use  App\Models\dealership;
 Route::get('/', function () {
     return view('auth/register');
 });
-
+//sancutm Authentication
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
 
-    $user = Auth::user();
-    if($user->type()=='user'){
 
-      Route::get('/dashboard', function () {
+   Route::get('/dashboard', function () {
 
      // $models=  make::find(1)->models()->unique('name');
     // foreach($models as $m)
     // echo $m;
-      
+
         return view('dashboard');
     })->name('dashboard');
-    }
-    
+
+
      Route::get('/order', function () {
         return view('Advertisement');
     })->name('order');
+
 });

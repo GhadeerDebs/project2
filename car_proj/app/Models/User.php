@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\dealership;
 use App\Models\Advertisement;
 use App\Models\Appoinment;
-class User extends Authenticatable implements MustVerifyEmail 
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -75,5 +75,5 @@ class User extends Authenticatable implements MustVerifyEmail
        public function appoinments(){
           return $this->hasMany(Appoinment::class);
     }
-   
+
 }
