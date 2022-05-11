@@ -18,6 +18,7 @@ use  App\Models\dealership;
 |
 */
 
+
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -26,8 +27,8 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'isEmployee',
 ])->group(function () {
-
 
    Route::get('/dashboard', function () {
 
@@ -36,6 +37,28 @@ Route::middleware([
     // echo $m;
 
         return view('dashboard');
+    })->name('dashboard');
+
+
+     Route::get('/order', function () {
+        return view('Advertisement');
+    })->name('order');
+
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isAdmin',
+])->group(function () {
+
+   Route::get('/dashboard', function () {
+
+     // $models=  make::find(1)->models()->unique('name');
+    // foreach($models as $m)
+    // echo $m;
+
+        return view('Advertisement');
     })->name('dashboard');
 
 

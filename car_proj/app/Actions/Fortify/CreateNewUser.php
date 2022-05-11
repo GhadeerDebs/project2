@@ -22,11 +22,11 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'phone' => ['required', 'numeric','digits:10'],
+            'phone' => ['required','digits:10'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-           
+            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validate();
 
         return User::create([
@@ -35,5 +35,9 @@ class CreateNewUser implements CreatesNewUsers
             'phone'=>$input['phone'],
             'password' => Hash::make($input['password']),
         ]);
+        
+         if (isset($input['photo'])) {
+            $user->updateProfilePhoto($input['photo']);
+        }
     }
 }

@@ -19,17 +19,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-//API route for register new user
 Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
-//API route for login user
 Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
 
-//Protecting Routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/profile', function(Request $request) {
-        return auth()->user();
-    });
 
-    // API route for logout user
-    Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'isUser',
+])->group(function () {
+
+       Route::get('/profile', [App\Http\Controllers\API\AuthController::class, 'profile']);
+       Route::post('/profile/updatepassword', [App\Http\Controllers\API\AuthController::class, 'updatepassword']);
+       Route::post('/profile/update', [App\Http\Controllers\API\AuthController::class, 'updateProfile']);
+       Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+
+
 });
+
