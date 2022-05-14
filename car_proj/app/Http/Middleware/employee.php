@@ -19,16 +19,17 @@ class employee
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-             if ( Auth::user()->type == 'employee'){
-                 return $next($request);
-            } else {
-                 Auth::user()->tokens()->delete();
-              return redirect(RouteServiceProvider::EmployeeHOME);
+      
+           if(Auth::user()->type === 'employee')
+        {
+            return $next($request);
+        }
+        else
+        {
+           return redirect()->route('logout1');
 
-             }
-        }   
-         return $next($request);
+        }
+        return $next($request);
 
     }
 }

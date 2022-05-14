@@ -18,16 +18,16 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-             if ( Auth::user()->type == 'admin'){
-                 return $next($request);
-             } else {
-                   Auth::user()->tokens()->delete();
-            return redirect(RouteServiceProvider::AdminHOME);
+       
+            if(Auth::user()->type === 'admin')
+        {
+            return $next($request);
+        }
+        else
+        {
+            return redirect()->route('logout1');
 
-            }
-       }
-          return $next($request);
-
+        }
+        return $next($request);
     }
 }

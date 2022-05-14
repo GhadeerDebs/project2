@@ -22,6 +22,35 @@ use  App\Models\dealership;
 Route::get('/', function () {
     return view('auth/register');
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+
+     Route::get('/dashboard', function () {
+         
+
+            if(Auth::user()->type === 'admin')
+            {
+                   return view('Admin_Dashboard');
+            }
+            elseif(Auth::user()->type === 'employee')
+            {
+                   return view('dashboard');
+            }
+            else{
+
+                  return redirect()->route('logout1');
+            }
+    
+
+    })->name('dashboard');
+
+});
+
+
 //sancutm Authentication
 Route::middleware([
     'auth:sanctum',
@@ -30,21 +59,14 @@ Route::middleware([
     'isEmployee',
 ])->group(function () {
 
-   Route::get('/dashboard', function () {
-
-     // $models=  make::find(1)->models()->unique('name');
-    // foreach($models as $m)
-    // echo $m;
-
-        return view('dashboard');
-    })->name('dashboard');
-
 
      Route::get('/order', function () {
         return view('Advertisement');
     })->name('order');
 
 });
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -52,18 +74,13 @@ Route::middleware([
     'isAdmin',
 ])->group(function () {
 
-   Route::get('/dashboard', function () {
 
-     // $models=  make::find(1)->models()->unique('name');
-    // foreach($models as $m)
-    // echo $m;
-
-        return view('Advertisement');
-    })->name('dashboard');
-
-
-     Route::get('/order', function () {
+     Route::get('/s', function () {
         return view('Advertisement');
     })->name('order');
 
 });
+
+// $models=  make::find(1)->models()->unique('name');
+    // foreach($models as $m)
+    // echo $m;
