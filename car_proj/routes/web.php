@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\make;
+use App\Http\Controllers\dealership_controller;
+use App\Models\make;
 use App\Models\make_years;
-use  App\Models\moodel;
-use  App\Models\dealership;
+use App\Models\moodel;
+use App\Models\dealership;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,10 +75,7 @@ Route::middleware([
     'isAdmin',
 ])->group(function () {
 
-
-     Route::get('/s', function () {
-        return view('Advertisement');
-    })->name('order');
+       Route::resource('dealership', dealership_controller::class);
 
 });
 
