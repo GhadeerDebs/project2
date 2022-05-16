@@ -19,14 +19,11 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            $user=Auth::user();
-             if ($user->type == 'admin'){
-                return $next($request);
-
+             if ( Auth::user()->type == 'admin'){
+                 return $next($request);
              } else {
-                $user->tokens()->delete();
+                   Auth::user()->tokens()->delete();
             return redirect(RouteServiceProvider::AdminHOME);
-
 
             }
        }

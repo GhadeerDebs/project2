@@ -19,7 +19,7 @@ class User
      */
     public function handle(Request $request, Closure $next)
     {
-
+     
         if(Auth::check()){
             if ( Auth::user()->type == 'user'){
                 return $next($request);

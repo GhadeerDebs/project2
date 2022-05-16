@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
 
     /////////////////////////////////////////Register
-
+    
     public function register(Request $request)
     {
 
@@ -36,7 +36,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-
+      
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -98,7 +98,7 @@ class AuthController extends Controller
 
         /////////////////////////////////////////updateProfile
 
-
+  
      public function updateProfile(Request $request){
 
 
@@ -126,7 +126,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone'=> $request->phone,
         ])->save();
-
+        
            return response()
             ->json(['message' =>'You have successfully update ' ],200);
 
@@ -137,7 +137,7 @@ class AuthController extends Controller
 
 
     public function updatepassword(Request $request){
-
+        
          $user = auth()->user();
 
          $validator = Validator::make($request->all(),[
@@ -174,7 +174,7 @@ class AuthController extends Controller
 
          /////////////////////////////////////////profile
 
-
+         
 
      public function profile()
      {
