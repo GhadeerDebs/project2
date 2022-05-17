@@ -31,7 +31,7 @@ Route::middleware([
 ])->group(function () {
 
      Route::get('/dashboard', function () {
-         
+
 
             if(Auth::user()->type === 'admin')
             {
@@ -45,7 +45,7 @@ Route::middleware([
 
                   return redirect()->route('logout1');
             }
-    
+
 
     })->name('dashboard');
 
@@ -76,7 +76,9 @@ Route::middleware([
 ])->group(function () {
 
        Route::resource('dealership', dealership_controller::class);
+      // Route::get('dealership/edit/{id}','App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
 
+   //   Route::POST('dealership/destroy/{id}','App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
 });
 
 // $models=  make::find(1)->models()->unique('name');

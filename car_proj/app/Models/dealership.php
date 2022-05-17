@@ -10,18 +10,21 @@ use App\Models\Appoinment;
 class dealership extends Model
 {
     use HasFactory;
-    
+
     public $table = "dealership";
+    protected $fillable=[
+        'name' , 'location' , 'phone' , "dealer_photo_path"
+    ];
 
     public function employees(){
 
           return $this->hasMany(User::class);
-    
+
     }
     public function Advertisements(){
 
           return $this->hasMany(Advertisement::class);
-    
+
     }
      public function appoinments(){
           return $this->hasMany(Appoinment::class);
