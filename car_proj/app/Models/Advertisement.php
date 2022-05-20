@@ -15,31 +15,38 @@ class Advertisement extends Model
 {
     public $table = "advertisement";
     use HasFactory;
+    protected $fillable = [
+        'type', 'engine_capacity',    'engine_power', 'drivetrain',    'weight',    'gearbox',    'color',    'dealership_id', 'model_id'
 
-    public function dealership(){
-        
-         return $this->belongsTo(dealership::class);
+    ];
+    public function dealership()
+    {
+
+        return $this->belongsTo(dealership::class);
     }
-    public function model(){
+    public function model()
+    {
 
-         return $this->belongsTo(moodel::class);
+        return $this->belongsTo(moodel::class);
     }
-    public function pictures(){
+    public function pictures()
+    {
 
-          return $this->hasMany(Picture::class);
+        return $this->hasMany(Picture::class);
     }
-    public function Equipments(){
+    public function Equipments()
+    {
 
-          return $this->hasMany(Equipment::class);
+        return $this->hasMany(Equipment::class);
     }
-    public function EN_Equipments(){
+    public function EN_Equipments()
+    {
 
-          return $this->hasMany(EN_Equipment::class);
+        return $this->hasMany(EN_Equipment::class);
     }
-    public function users_save(){
+    public function users_save()
+    {
 
-         return $this->belongsToMany(User::class,'favorite');
-
+        return $this->belongsToMany(User::class, 'favorite');
     }
-    
 }

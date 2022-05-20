@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\dealership;
 use App\Models\Advertisement;
 use App\Models\Appoinment;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
@@ -29,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'phone',
+        // 'phone',
     ];
 
     /**
@@ -62,18 +63,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function dealership(){
+    public function dealership()
+    {
 
-         return $this->belongsTo(dealership::class);
-
+        return $this->belongsTo(dealership::class);
     }
-    public function fav_advertisements(){
+    public function fav_advertisements()
+    {
 
-         return $this->belongsToMany(Advertisement::class,'favorite');
-
+        return $this->belongsToMany(Advertisement::class, 'favorite');
     }
-       public function appoinments(){
-          return $this->hasMany(Appoinment::class);
+    public function appoinments()
+    {
+        return $this->hasMany(Appoinment::class);
     }
-
 }
