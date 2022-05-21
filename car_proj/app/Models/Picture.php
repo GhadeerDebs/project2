@@ -11,7 +11,9 @@ class Picture extends Model
 {
     use HasFactory;
          public $table = "picture";
-
+         protected $fillable = [
+            'advertisement_photo_path', 'adv_id'
+           ];
      public function Advertisement(){
          return $this->belongsTo(Advertisement::class);
     }

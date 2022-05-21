@@ -24,7 +24,7 @@
                     <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
                         {{ __('Users  ') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('ads.index') }}" :active="request()->routeIs('user')">
+                    <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('user')">
                         {{ __('Advertisemenet  ') }}
                     </x-jet-nav-link>
                 </div>
