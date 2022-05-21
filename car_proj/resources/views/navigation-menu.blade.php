@@ -18,14 +18,24 @@
                     <x-jet-nav-link href="{{ route('order') }}" :active="request()->routeIs('order')">
                         {{ __('order    ') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('dealership.index') }}" :active="request()->routeIs('dealership')">
+                    <x-jet-nav-link href="{{ route('dealership') }}" :active="request()->routeIs('dealership')">
                         {{ __('dealership   ') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
                         {{ __('Users  ') }}
                     </x-jet-nav-link>
+<<<<<<< Updated upstream
                     <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('user')">
+=======
+                    <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('ads')">
+>>>>>>> Stashed changes
                         {{ __('Advertisemenet  ') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Employee') }}" :active="request()->routeIs('Employee')">
+                        {{ __('Employee  ') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('Admin') }}" :active="request()->routeIs('Admin')">
+                        {{ __('Admin  ') }}
                     </x-jet-nav-link>
                 </div>
             </div>

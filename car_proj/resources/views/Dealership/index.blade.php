@@ -30,12 +30,15 @@
                     <td>
                         <a href="{{ route('dealership.edit', $item->id) }}"><i class="fas fa-edit"></i></a>
 
-                        <form action="{{ route('dealership.destroy', $item->id) }}"
+                        {{-- <form action="{{ route('dealership.destroy', $item->id) }}"
                             onsubmit="return confirm('Are you sure?');" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit"><i class="fas fa-trash"></i></button>
-                        </form>
+                        </form> --}}
+                        <a href="{{ route('dealership.destroy', $item->id) }}"><i
+                                class="fas fa-trash "></i></a>&nbsp;&nbsp;
+
                     </td>
 
                 </tr>

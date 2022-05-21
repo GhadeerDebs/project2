@@ -38,13 +38,16 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>
-                                        <form action="{{ route('user.destroy', $item->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"><i class="fas fa-trash"></i></button>
-                                        </form>&nbsp;&nbsp;
-                                        <a href="{{ route('user.edit', $item->id) }}"><button
-                                                class="btn btn-danger">Edit</button></a>&nbsp;&nbsp;
+                                        <div>
+                                            <form action="{{ route('user.destroy', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                            <a href="{{ route('user.edit', $item->id) }}"><i
+                                                    class="fas fa-edit"></i></a>
+                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach

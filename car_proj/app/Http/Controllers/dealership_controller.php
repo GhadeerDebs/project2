@@ -15,9 +15,8 @@ class dealership_controller extends Controller
     public function index()
     {
 
-        $dealerships=dealership::all();
-        return view('dealership.index', ['dealerships'=>$dealerships]);
-
+        $dealerships = dealership::all();
+        return view('dealership.index', ['dealerships' => $dealerships]);
     }
 
     /**
@@ -33,20 +32,20 @@ class dealership_controller extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'location' => 'required',
             'phone' => 'required',
             'dealer_photo_path' => 'required|image'
         ]);
         $photo =  $request->file('dealer_photo_path');
-        $newphoto = time().$photo->getClientOriginalName();
-        $photo->move('dealer',$newphoto);
+        $newphoto = time() . $photo->getClientOriginalName();
+        $photo->move('dealer', $newphoto);
         $dealership = dealership::create([
             'name' => $request->name,
             'location' => $request->location,
             'phone' => $request->phone,
-            'dealer_photo_path' => 'dealer/'. $newphoto
+            'dealer_photo_path' => 'dealer/' . $newphoto
 
         ]);
         return redirect()->back();
@@ -55,8 +54,8 @@ class dealership_controller extends Controller
 
     public function show($id)
     {
-       $dealership=dealership::where('id',$id)->first();
-       return view('Dealership.show')->with('dealership',$dealership);
+        $dealership = dealership::where('id', $id)->first();
+        return view('Dealership.show')->with('dealership', $dealership);
     }
 
 
@@ -64,12 +63,12 @@ class dealership_controller extends Controller
     {
 
 
-      //  $dealership=dealership::where('id',$this->id);
-      //  $dealership=dealership::where('id',$dealership->id)->first();
-        if($dealership===null){
+        //  $dealership=dealership::where('id',$this->id);
+        //  $dealership=dealership::where('id',$dealership->id)->first();
+        if ($dealership === null) {
             return redirect()->back();
-        }else
-        return view('Dealership.edit')->with('dealership',$dealership);
+        } else
+            return view('Dealership.edit')->with('dealership', $dealership);
     }
 
     /**
@@ -79,37 +78,44 @@ class dealership_controller extends Controller
      * @param  \App\Models\dealership  $dealership
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,dealership $dealership)
+    public function update(Request $request, dealership $dealership)
     {
         //$dealership=dealership::find($id);
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'location' => 'required',
             'phone' => 'required',
         ]);
-        if($request->has('dealer_photo_path')){
+        if ($request->has('dealer_photo_path')) {
             $photo = $request->file('dealer_photo_path');
-            $newphoto = time().$photo->getClientOriginalName();
-            $photo->move('dealer/',$newphoto);
-            $dealership->dealer_photo_path='dealer/'. $newphoto;
+            $newphoto = time() . $photo->getClientOriginalName();
+            $photo->move('dealer/', $newphoto);
+            $dealership->dealer_photo_path = 'dealer/' . $newphoto;
         }
-        $dealership->name=$request->name;
-        $dealership->location=$request->location;
-        $dealership->phone=$request->phone;
+        $dealership->name = $request->name;
+        $dealership->location = $request->location;
+        $dealership->phone = $request->phone;
         $dealership->save();
         return redirect()->back();
     }
 
 
-    public function destroy(dealership $dealership)
+    public function destroy($id)
     {
-        dd($dealership->id);
-        //$dealership=dealership::where('id',$id)->get();
-        if($dealership===null){
-            return redirect()->route('dealership.index');
-        }
-         else{
-        $dealership->delete();
+        // public function destroy(dealership $dealership)
+        // {
+        //     dd($dealership->id);
+        //     //$dealership=dealership::where('id',$id)->get();
+        //     if($dealership===null){
+        //         return redirect()->route('dealership.index');
+        //     }
+        //      else{
+        //     $dealership->delete();
+        //     return redirect()->back();
+        // }}
+        $dealership = dealership::find($id);
+        $dealership->destroy($id);
+
         return redirect()->back();
-    }}
+    }
 }
