@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Statecitydropdown;
 use App\Http\Controllers\dealership_controller;
 use App\Models\make;
 use App\Models\make_years;
@@ -112,6 +113,7 @@ Route::middleware([
     Route::get('ads/edit/{ads}', 'App\Http\Controllers\AdvertiseController@edit')->name('ads.edit');
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
+
 });
 
 
@@ -156,3 +158,4 @@ Route::middleware([
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
+

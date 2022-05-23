@@ -35,8 +35,8 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">dealership_id :</label>
-                    <label for="exampleFormControlInput1">{{$ads->dealership_id}}</label>
+                    <label for="exampleFormControlInput1">dealership :</label>
+                    <label for="exampleFormControlInput1">{{$ads->dealership->name}}</label>
 
                 </div>
                 <div class="form-group">
@@ -44,9 +44,17 @@
                     <label for="exampleFormControlInput1">{{$ads->color}}</label>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">model_id :</label>
-                    <label for="exampleFormControlInput1">{{$ads->model_id}}</label>
+                    <label for="exampleFormControlInput1">model :</label>
+                    <label for="exampleFormControlInput1">{{$ads->model->name}}</label>
 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Basic equipment :</label>
+                    <label for="exampleFormControlInput1">{{($ads->equipment != null) ? $ads->equipment : 'undefined'}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">entertainment equipment :</label>
+                    <label for="exampleFormControlInput1">{{($ads->entertainment_equipment != null)?$ads->entertainment_equipment : 'undefined'}}</label>
                 </div>
 
 @stop

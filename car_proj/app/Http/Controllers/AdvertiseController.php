@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Livewire\MakeMakeyearsModelDropdown as livewire;
 use App\Models\Advertisement as ad;
 use Illuminate\Http\Request;
 use App\Models\dealership;
 use App\Models\moodel;
 use App\Models\Picture;
-use Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire as LivewireLivewire;
+
 class AdvertiseController extends Controller
 {
 
@@ -23,6 +26,7 @@ class AdvertiseController extends Controller
     {
         $dealerships=dealership::all();
         $models=moodel::all();
+
         return view('ads.create')->with('dealerships',$dealerships)->with('models',$models);
     }
 
@@ -34,6 +38,7 @@ class AdvertiseController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request->all());
 
         $this->validate($request, [
             'type'            => 'required',
@@ -44,8 +49,8 @@ class AdvertiseController extends Controller
             'gearbox'         => 'required',
             'color'           => 'required',
             'dealership_id'   => 'required',
-            'model_id'        => 'required',
-            'advertisement_photo_path' => 'required|image'
+            'model_id'        => 'required'
+           // 'advertisement_photo_path' => 'required|image'
         ]);
         $ads = ad::create([
             'type'            => $request->type,
@@ -57,31 +62,20 @@ class AdvertiseController extends Controller
             'color'           => $request->color,
             'dealership_id'   => $request->dealership_id,
             'model_id'        => $request->model_id,
+            'entertainment_equipment'        => $request->entertainment_equipment,
+            'equipment'        => $request->equipment
 
 
         ]);
-        foreach ($request->advertisement_photo_path as $imagefile) {
-        //     $newphoto = time().$imagefile->getClientOriginalName();
-        //     $imagefile->move('dealer',$newphoto);
-        //     // $image->advertisement_photo_path = $path;
-        //     // $image->adv_id = $ads->id;
-        //     $image=Picture::create([
-        //         'advertisement_photo_path' =>'dealer/'.$newphoto,
-        //         'adv_id'=>$ads->id
-        //     ]);
-        //    // $image->save();
-        $tests = new Picture([
-            'advertisement_photo_path' => $imagefile['advertisement_photo_path'],
-            'adv_id' => $ads->id
 
-        ]);
-        $tests->save();
-        //    if($tests->id==1){
-        //     return   view('dealership.create');
-        //    }
-        }
-        return redirect()->back();
-    }
+
+
+          return redirect()->back();
+            }
+
+
+
+
 
     public function show(ad $ads)
     {
@@ -102,7 +96,9 @@ class AdvertiseController extends Controller
         if ($ads === null) {
             return redirect()->back();
         }
-        return view('ads.edit')->with('ads', $ads);
+        $dealerships=dealership::all();
+        $models=moodel::all();
+        return view('ads.edit')->with('ads', $ads)->with('dealerships',$dealerships)->with('models', $models);
     }
 
     /**
@@ -125,10 +121,14 @@ class AdvertiseController extends Controller
             'gearbox'         => 'required',
             'color'           => 'required',
             'dealership_id'   => 'required',
-            'model_id'        =>'required'
+            //'model_id'        =>'required'
 
         ]);
 
+        if($request->has('model_id')){
+            $ads->model_id        = $request->model_id;
+            $ads->save();
+        }
 
         $ads->type             = $request->type;
         $ads->engine_capacity = $request->engine_capacity;
@@ -138,8 +138,11 @@ class AdvertiseController extends Controller
         $ads->gearbox         = $request->gearbox;
         $ads->color          = $request->color;
         $ads->dealership_id   = $request->dealership_id;
-        $ads->model_id        = $request->model_id;
+
+        $ads->entertainment_equipment        = $request->entertainment_equipment ;
+        $ads->equipment        = $request->equipment;
         $ads->save();
+
         return redirect()->back();
     }
 
