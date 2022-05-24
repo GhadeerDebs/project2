@@ -129,7 +129,7 @@ $gearboxArray=['automatic', 'manual'];
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Choose Images</label>
-                            <input type="file"  name="advertisement_photo_path[]" multiple="true">
+                            <input type="file"  name="advertisement_photo_path[]"id="exampleFile" type="file" accept="image/*" multiple>
                     </div>
 
                   </div>

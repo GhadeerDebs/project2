@@ -17,7 +17,8 @@ class AdvertiseController extends Controller
     public function index()
     {
         $ads = ad::orderby('created_at', 'DESC')->get();
-        return view('ads.index')->with('ads', $ads);
+        $images=Picture::all();
+        return view('ads.index')->with('ads', $ads)->with('images',$images);
     }
 
 
@@ -67,6 +68,28 @@ class AdvertiseController extends Controller
 
 
         ]);
+      //  $gallery =  new Picture;
+        foreach( $request->file('advertisement_photo_path') as $image)
+          {
+            $upload_image_name = time().$image->getClientOriginalName();
+            $image->move('adss', $upload_image_name);
+            $name = $upload_image_name;
+            $imgs=Picture::create(
+                [
+                 'adv_id' =>$ads->id,
+                    'advertisement_photo_path'=>'adss/'.$name
+
+                ]
+             );
+          }
+         // $gallery->advertisement_photo_path = implode(', ',$name);
+        //    Picture::insert(
+        //        ['advertisement_photo_path'=> $name,
+        //          'adv_id' =>$ads->id
+        //        ]
+        //     );
+
+        //   $gallery->save();
 
 
 
@@ -120,7 +143,8 @@ class AdvertiseController extends Controller
             'weight'          => 'required',
             'gearbox'         => 'required',
             'color'           => 'required',
-            'dealership_id'   => 'required',
+            'dealership_id'   => 'required'
+          //  'advertisement_photo_path' =>'required'
             //'model_id'        =>'required'
 
         ]);

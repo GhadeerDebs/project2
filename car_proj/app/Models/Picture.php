@@ -15,6 +15,6 @@ class Picture extends Model
             'advertisement_photo_path', 'adv_id'
            ];
      public function Advertisement(){
-         return $this->belongsTo(Advertisement::class);
+         return $this->belongsTo('App\Models\Advertisement','adv_id');
     }
 }

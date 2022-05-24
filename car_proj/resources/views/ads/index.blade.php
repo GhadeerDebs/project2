@@ -33,7 +33,7 @@
                                 <th scope="col">type</th>
                                 <th scope="col">Color</th>
                                 <th scope="col">gearbox</th>
-                                <th scope="col">engine power</th>
+                                <th scope="col">image</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -45,7 +45,17 @@
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->color }}</td>
                                     <td>{{ $item->gearbox }}</td>
-                                    <td>{{ $item->engine_power }}</td>
+                                    <td>
+                                        @foreach ($images as $image)
+                                        @if($image->adv_id==$item->id)
+                                        <img src="  {{ $image->advertisement_photo_path }}" alt="  {{$item->advertisement_photo_path }}"
+                                        class="img-tumbnail" width="100" height="100">
+                                        @endif
+                                        @endforeach
+
+                                            {{-- {{$item->pictures->adv_id}} --}}
+                                            {{-- {{$item->pictures->id}} --}}
+                                    </td>
 
                                     <td>
                                         <a href="{{ route('ads.show', $item->id) }}"><button
