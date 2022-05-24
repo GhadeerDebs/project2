@@ -12,7 +12,7 @@ class moodel extends Model
 {
     use HasFactory;
      public $table = "model";
-protected $fillable=['name','make_years_id'];
+
       public function years(){
           return $this->hasMany(make_years::class)->select('year');
     }
@@ -22,5 +22,5 @@ protected $fillable=['name','make_years_id'];
      public function advertisement(){
           return $this->hasMany(Advertisement::class);
     }
-
+    
 }

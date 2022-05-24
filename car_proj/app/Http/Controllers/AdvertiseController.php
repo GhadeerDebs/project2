@@ -8,23 +8,33 @@ use App\Models\dealership;
 use App\Models\moodel;
 use App\Models\Picture;
 use Storage;
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
 class AdvertiseController extends Controller
 {
 
     public function index()
     {
         $ads = ad::orderby('created_at', 'DESC')->get();
-        $images=Picture::all();
-        return view('ads.index')->with('ads', $ads)->with('images',$images);
+        $images = Picture::all();
+        return view('ads.index')->with('ads', $ads)->with('images', $images);
     }
 
 
 
     public function create()
     {
+<<<<<<< HEAD
+        $dealerships = dealership::all();
+        $models = moodel::all();
+        return view('ads.create')->with('dealerships', $dealerships)->with('models', $models);
+=======
         $dealerships=dealership::all();
         $models=moodel::all();
         return view('ads.create')->with('dealerships',$dealerships)->with('models',$models);
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
     }
 
     /**
@@ -62,21 +72,20 @@ class AdvertiseController extends Controller
 
         ]);
 <<<<<<< HEAD
-      //  $gallery =  new Picture;
-        foreach( $request->file('advertisement_photo_path') as $image)
-          {
-            $upload_image_name = time().$image->getClientOriginalName();
+        //  $gallery =  new Picture;
+        foreach ($request->file('advertisement_photo_path') as $image) {
+            $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('adss', $upload_image_name);
             $name = $upload_image_name;
-            $imgs=Picture::create(
+            $imgs = Picture::create(
                 [
-                 'adv_id' =>$ads->id,
-                    'advertisement_photo_path'=>'adss/'.$name
+                    'adv_id' => $ads->id,
+                    'advertisement_photo_path' => 'adss/' . $name
 
                 ]
-             );
-          }
-         // $gallery->advertisement_photo_path = implode(', ',$name);
+            );
+        }
+        // $gallery->advertisement_photo_path = implode(', ',$name);
         //    Picture::insert(
         //        ['advertisement_photo_path'=> $name,
         //          'adv_id' =>$ads->id
@@ -84,6 +93,13 @@ class AdvertiseController extends Controller
         //     );
 
         //   $gallery->save();
+
+        // ]);
+        //$tests->save();
+        //    if($tests->id==1){
+        //     return   view('dealership.create');
+        //    }
+        // }
 =======
         foreach ($request->advertisement_photo_path as $imagefile) {
         //     $newphoto = time().$imagefile->getClientOriginalName();
@@ -98,7 +114,6 @@ class AdvertiseController extends Controller
         $tests = new Picture([
             'advertisement_photo_path' => $imagefile['advertisement_photo_path'],
             'adv_id' => $ads->id
->>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
 
         ]);
         $tests->save();
@@ -106,6 +121,7 @@ class AdvertiseController extends Controller
         //     return   view('dealership.create');
         //    }
         }
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
         return redirect()->back();
     }
 
@@ -152,7 +168,7 @@ class AdvertiseController extends Controller
             'color'           => 'required',
 <<<<<<< HEAD
             'dealership_id'   => 'required'
-          //  'advertisement_photo_path' =>'required'
+            //  'advertisement_photo_path' =>'required'
             //'model_id'        =>'required'
 =======
             'dealership_id'   => 'required',
