@@ -61,16 +61,18 @@
                                         <a href="{{ route('ads.show', $item->id) }}"><button
                                                 class="btn btn-info">show</button></a>
                                         <a href="{{ route('ads.edit', $item->id) }}"><button
-                                                class="btn btn-warning">Edit</button></a>&nbsp;&nbsp;
-                                        &nbsp;&nbsp;
-                                       <div>
+                                                class="btn btn-warning">Edit</button></a>
+                                        {{-- <a href="{{ route('ads.destroy', $item->id) }}"><button
+                                            class="btn btn-Danger">Delete</button></a>&nbsp;&nbsp; --}}
+
+
                                         <form action="{{ route('ads.destroy', $item->id) }}"
-                                            onsubmit="return confirm('Are you sure?');" method="POST">
+                                            onsubmit="return confirm('Are you sure?');"  method="POST">
                                             @csrf
                                             @method('POST')
                                             <button  class="btn btn-danger" type="submit"><i class="fas fa-trash"></i>Delete</button>
                                         </form>
-                                       </div>
+
                                     </td>
                                 </tr>
                             @endforeach

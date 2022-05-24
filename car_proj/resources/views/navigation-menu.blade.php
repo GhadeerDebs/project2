@@ -28,11 +28,7 @@
                     <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('user')">
 =======
                     <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('ads')">
-<<<<<<< HEAD
-
-=======
 >>>>>>> Stashed changes
->>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
                         {{ __('Advertisemenet  ') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Employee') }}" :active="request()->routeIs('Employee')">
