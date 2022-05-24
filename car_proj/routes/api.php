@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\AdvetiseController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,3 +38,14 @@ Route::middleware([
 
 });
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'isUser',
+])->group(function () {
+
+       Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
+       Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);
+
+
+});
