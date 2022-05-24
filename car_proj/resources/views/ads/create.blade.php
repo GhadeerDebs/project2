@@ -6,7 +6,6 @@
 $typeArray=['Sedan','Minivan','Jeep','MiniJeep','Coupe','SUV','Sports_sedan'];
 $drivetrainArray=['frontWHeelDrive', 'rearwheelDrive'];
 $gearboxArray=['automatic', 'manual'];
-
 @endphp
     <div class="container">
 
@@ -16,7 +15,6 @@ $gearboxArray=['automatic', 'manual'];
                     @foreach ($errors as $item)
                         <li>
                             {{$item}}
-
                         </li>
                     @endforeach
                 </ul>
@@ -27,6 +25,8 @@ $gearboxArray=['automatic', 'manual'];
                         <h1 class="display-4">Create Advertise</h1>
                     </div>
                     <br>
+<<<<<<< HEAD
+<<<<<<< HEAD
 
                     <div class="container">
                          <a href=" {{ route('ads') }} "><button type="button"
@@ -151,6 +151,10 @@ $gearboxArray=['automatic', 'manual'];
                         <h1 class="display-4">Create Advertise</h1>
                     </div>
                     <br>
+=======
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
+=======
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
                     <br>
                     <div class="container"> <a href=" {{ route('ads') }} "><button type="button"
                                 class="btn btn-primary">
@@ -158,7 +162,15 @@ $gearboxArray=['automatic', 'manual'];
                 </div>
             </div>
         </div>
-
+        {{-- 'type'            => 'required',
+'engine_capacity' => 'required',
+'engine_power'    => 'required',
+'drivetrain'      => 'required',
+'weight'          => 'required',
+'gearbox'         => 'required',
+'color'           => 'required',
+'dealership_id'   => 'required',
+'model_id'        => 'required' --}}
 
         <div class="row">
             <div class="col">
@@ -177,7 +189,7 @@ $gearboxArray=['automatic', 'manual'];
 
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">engine_capacity</label>
-                        <input type="form-control" class="form-control" name="engine_capacity">
+                        <textarea class="form-control" rows="3" name="engine_capacity"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">engine_power</label>
@@ -229,9 +241,7 @@ $gearboxArray=['automatic', 'manual'];
                     </div>
                     <div >
                         <label>Choose Images</label>
-                        <input type="file"  name="advertisement_photo_path[]" multiple="true">
-
-
+                        <input type="file"  name="advertisement_photo_path" multiple>
                         </div>
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">Save</button>
@@ -240,5 +250,5 @@ $gearboxArray=['automatic', 'manual'];
             </div>
 
         </div>
-    </div> --}}
+    </div>
 @stop

@@ -1,13 +1,16 @@
+
 @extends('template')
-@section('title', 'Advertisment')
+@section('title', ' Edit Advertise')
 
 @section('content')
 @php
 $typeArray=['Sedan','Minivan','Jeep','MiniJeep','Coupe','SUV','Sports_sedan'];
 $drivetrainArray=['frontWHeelDrive', 'rearwheelDrive'];
 $gearboxArray=['automatic', 'manual'];
-
+$colorArray=['red','white','black','silver','gray'];
 @endphp
+<<<<<<< HEAD
+<<<<<<< HEAD
     <div class="container">
 
         <div class="row">
@@ -152,6 +155,10 @@ $gearboxArray=['automatic', 'manual'];
 
 {{--
 /////////////////
+=======
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
+=======
+>>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
 <form action="{{route('ads.update',$ads->id)}}" method="POST" >
     @csrf
     @method('POST')
@@ -207,4 +214,5 @@ $gearboxArray=['automatic', 'manual'];
                     <input type="form-control" class="form-control" name="model_id" value="{{$ads->model_id}}">
                 </div>
     <button class="btn btn-primary" type="submit">Save</button>
-  </form> --}}
+  </form>
+@stop
