@@ -44,8 +44,9 @@ Route::middleware([
     'isUser',
 ])->group(function () {
 
-       Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
-       Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);
+
 
 
 });
+Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
+Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);

@@ -10,7 +10,7 @@ use App\Models\Picture;
 use App\Models\Equipment;
 use App\Models\EN_Equipment;
 use App\Models\User;
-
+use Illuminate\Support\Facades\DB;
 class Advertisement extends Model
 {
     public $table = "advertisement";
@@ -19,33 +19,31 @@ class Advertisement extends Model
         'type', 'engine_capacity',    'engine_power', 'drivetrain',    'weight',    'gearbox',    'color',    'dealership_id', 'model_id' ,'entertainment_equipment','equipment'
 
     ];
-    public function dealership()
-    {
+    public function dealership(){
 
-        return $this->belongsTo(dealership::class);
-    }
-    public function model()
-    {
-        return $this->belongsTo(moodel::class);
-    }
+        return $this->belongsTo(dealership::class,'dealership_id','id');
+
+   }
+   public function model(){
+
+    return $this->belongsTo(moodel::class,'model_id');
+
+}
+public function year(){
+
+    return $this->belongsTo(moodel::class,'model_id')->get()->first()->year();
+
+}
+public function make(){
+
+    return $this->belongsTo(moodel::class,'model_id')->get()->first()->make();
+
+}
     public function pictures()
     {
-
-        // return $this->hasMany(Picture::class)->join('Picture', 'advertisement.id', '=','Picture.adv_id')
-        // ->select('Picture.advertisement_photo_path')->get()->unique('name');
-        return $this->hasMany(Picture::class);
+        return $this->hasMany(Picture::class,'adv_id','id');
     }
 
-    // public function Equipments()
-    // {
-
-    //     return $this->hasMany(Equipment::class);
-    // }
-    // public function EN_Equipments()
-    // {
-
-    //     return $this->hasMany(EN_Equipment::class);
-    // }
     public function users_save()
     {
 

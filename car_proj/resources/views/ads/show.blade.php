@@ -48,5 +48,10 @@
                     <label for="exampleFormControlInput1">{{$ads->model_id}}</label>
 
                 </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">model_id :</label>
+                    <label for="exampleFormControlInput1">{{$ads->model_id}}</label>
+
+                </div>
 
 @stop

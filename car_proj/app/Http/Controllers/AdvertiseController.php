@@ -45,8 +45,8 @@ class AdvertiseController extends Controller
             'gearbox'         => 'required',
             'color'           => 'required',
             'dealership_id'   => 'required',
-            'model_id'        => 'required',
-            'advertisement_photo_path' => 'required|image'
+            'model_id'        => 'required'
+            //'advertisement_photo_path' => 'required|image'
         ]);
         $ads = ad::create([
             'type'            => $request->type,
@@ -61,7 +61,6 @@ class AdvertiseController extends Controller
 
 
         ]);
-<<<<<<< HEAD
       //  $gallery =  new Picture;
         foreach( $request->file('advertisement_photo_path') as $image)
           {
@@ -84,28 +83,13 @@ class AdvertiseController extends Controller
         //     );
 
         //   $gallery->save();
-=======
-        foreach ($request->advertisement_photo_path as $imagefile) {
-        //     $newphoto = time().$imagefile->getClientOriginalName();
-        //     $imagefile->move('dealer',$newphoto);
-        //     // $image->advertisement_photo_path = $path;
-        //     // $image->adv_id = $ads->id;
-        //     $image=Picture::create([
-        //         'advertisement_photo_path' =>'dealer/'.$newphoto,
-        //         'adv_id'=>$ads->id
-        //     ]);
-        //    // $image->save();
-        $tests = new Picture([
-            'advertisement_photo_path' => $imagefile['advertisement_photo_path'],
-            'adv_id' => $ads->id
->>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
 
-        ]);
-        $tests->save();
+        // ]);
+        // $tests->save();
         //    if($tests->id==1){
         //     return   view('dealership.create');
         //    }
-        }
+        // }
         return redirect()->back();
     }
 
@@ -150,14 +134,9 @@ class AdvertiseController extends Controller
             'weight'          => 'required',
             'gearbox'         => 'required',
             'color'           => 'required',
-<<<<<<< HEAD
-            'dealership_id'   => 'required'
+            'dealership_id'   => 'required',
           //  'advertisement_photo_path' =>'required'
             //'model_id'        =>'required'
-=======
-            'dealership_id'   => 'required',
-            'model_id'        =>'required'
->>>>>>> parent of 9a4b6f3 (ads(livewire+curd))
 
         ]);
 
