@@ -4,6 +4,7 @@
 @section('title', ' Show Advertise')
 
 @section('content')
+<div class="form-row">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">type :</label>
                     <label for="exampleFormControlInput1">{{$ads->type}}</label>
@@ -53,5 +54,17 @@
                     <label for="exampleFormControlInput1">{{$ads->model_id}}</label>
 
                 </div>
+</div>
+<div class="form-row">
+    @foreach ($images as $image)
+    @if($image->adv_id==$ads->id)
+    <div class="col-md-6">
+        <img src="  {{ URL::asset($image->advertisement_photo_path) }}" alt="  {{$image->advertisement_photo_path }}"
+        class="img-tumbnail" width="100" height="100">
+    </div>
+
+    @endif
+    @endforeach
+</div>
 
 @stop

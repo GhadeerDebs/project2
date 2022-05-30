@@ -96,7 +96,8 @@ class AdvertiseController extends Controller
     public function show(ad $ads)
     {
         $ads = ad::where('id', $ads->id)->first();
-        return view('ads.show')->with('ads', $ads);
+        $images=Picture::all();
+        return view('ads.show')->with('ads', $ads)->with('images',$images);
     }
 
     /**
