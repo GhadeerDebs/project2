@@ -8,12 +8,21 @@ use App\Models\dealership;
 use App\Models\moodel;
 use App\Models\Picture;
 use Storage;
+use Illuminate\Support\Facades\Auth;
 class AdvertiseController extends Controller
 {
 
+
     public function index()
     {
+        $user=Auth::user();
+        $dealerID=$user->dealership_id;
+        $type=$user->type;
+        if($type=='employee'){
+            $ads = ad::orderby('created_at', 'DESC')->where('dealership_id',$dealerID)->get();
+        }else{
         $ads = ad::orderby('created_at', 'DESC')->get();
+        }
         $images=Picture::all();
         return view('ads.index')->with('ads', $ads)->with('images',$images);
     }
@@ -27,27 +36,23 @@ class AdvertiseController extends Controller
         return view('ads.create')->with('dealerships',$dealerships)->with('models',$models);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
-        $this->validate($request, [
-            'type'            => 'required',
-            'engine_capacity' => 'required',
-            'engine_power'    => 'required',
-            'drivetrain'      => 'required',
-            'weight'          => 'required',
-            'gearbox'         => 'required',
-            'color'           => 'required',
-            'dealership_id'   => 'required',
-            'model_id'        => 'required'
-            //'advertisement_photo_path' => 'required|image'
-        ]);
+
+        if(Auth::user()->type=='admin'){
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required',
+                'dealership_id'   => 'required',
+                'model_id'        => 'required'
+                //'advertisement_photo_path' => 'required|image'
+            ]);
         $ads = ad::create([
             'type'            => $request->type,
             'engine_capacity' => $request->engine_capacity,
@@ -60,8 +65,34 @@ class AdvertiseController extends Controller
             'model_id'        => $request->model_id,
 
 
-        ]);
-      //  $gallery =  new Picture;
+        ]);}
+        if(Auth::user()->type=='employee'){
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required',
+                'model_id'        => 'required'
+                //'advertisement_photo_path' => 'required|image'
+            ]);
+            $ads = ad::create([
+                'type'            => $request->type,
+                'engine_capacity' => $request->engine_capacity,
+                'engine_power'    => $request->engine_power,
+                'drivetrain'      => $request->drivetrain,
+                'weight'          => $request->weight,
+                'gearbox'         => $request->gearbox,
+                'color'           => $request->color,
+                'dealership_id'   => Auth::user()->dealership_id,
+                'model_id'        => $request->model_id,
+
+
+            ]);
+        }
+
         foreach( $request->file('advertisement_photo_path') as $image)
           {
             $upload_image_name = time().$image->getClientOriginalName();
@@ -75,21 +106,7 @@ class AdvertiseController extends Controller
                 ]
              );
           }
-         // $gallery->advertisement_photo_path = implode(', ',$name);
-        //    Picture::insert(
-        //        ['advertisement_photo_path'=> $name,
-        //          'adv_id' =>$ads->id
-        //        ]
-        //     );
 
-        //   $gallery->save();
-
-        // ]);
-        // $tests->save();
-        //    if($tests->id==1){
-        //     return   view('dealership.create');
-        //    }
-        // }
         return redirect()->back();
     }
 
@@ -100,46 +117,64 @@ class AdvertiseController extends Controller
         return view('ads.show')->with('ads', $ads)->with('images',$images);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\advertise  $advertise
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(ad $ads)
     {
-        //
+
         $ads = ad::where('id', $ads->id)->first();
-        if ($ads === null) {
-            return redirect()->back();
+        if(Auth::user()->type=='employee' && Auth::user()->dealership_id==$ads->dealership_id){
+            if ($ads === null) {
+                return redirect()->back();
+            }
+            return view('ads.edit')->with('ads', $ads);
         }
-        return view('ads.edit')->with('ads', $ads);
+        if(Auth::user()->type=='admin'){
+            $dealerships=dealership::all();
+            if ($ads === null) {
+                return redirect()->back();
+            }
+            return view('ads.edit')->with('ads', $ads)->with('dealerships',$dealerships);
+        }
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\advertise  $advertise
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, ad $ads)
     {
-        //
         $ads = ad::find($ads->id);
-        $this->validate($request, [
-            'type'            => 'required',
-            'engine_capacity' => 'required',
-            'engine_power'    => 'required',
-            'drivetrain'      => 'required',
-            'weight'          => 'required',
-            'gearbox'         => 'required',
-            'color'           => 'required',
-            'dealership_id'   => 'required',
-          //  'advertisement_photo_path' =>'required'
-            //'model_id'        =>'required'
+        if(Auth::user()->type=='admin'){
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required',
+                'dealership_id'   => 'required',
+              //  'advertisement_photo_path' =>'required'
+                //'model_id'        =>'required'
 
-        ]);
+            ]);
+            $ads->dealership_id   = $request->dealership_id;
+        }
+        if(Auth::user()->type=='employee'){
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required'
+              //  'advertisement_photo_path' =>'required'
+                //'model_id'        =>'required'
+
+            ]);
+            $ads->dealership_id   = Auth::user()->dealership_id;
+        }
+
+
 
 
         $ads->type             = $request->type;
@@ -149,8 +184,9 @@ class AdvertiseController extends Controller
         $ads->weight          = $request->weight;
         $ads->gearbox         = $request->gearbox;
         $ads->color          = $request->color;
-        $ads->dealership_id   = $request->dealership_id;
+        if($request->has('model_id')){
         $ads->model_id        = $request->model_id;
+        }
         $ads->save();
         return redirect()->back();
     }

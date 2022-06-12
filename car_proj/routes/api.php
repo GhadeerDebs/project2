@@ -50,3 +50,5 @@ Route::middleware([
 });
 Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
 Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);
+Route::get('/dealerships', [App\Http\Controllers\API\DealershipController::class, 'index']);
+Route::get('/dealerships/{id}', [App\Http\Controllers\API\DealershipController::class, 'show']);

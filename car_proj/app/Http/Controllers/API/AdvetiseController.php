@@ -15,21 +15,8 @@ use App\Models\moodel;
 class AdvetiseController extends Controller
 {
 
-    public function index()
+ public function index()
     {
-
- //$ads= Advertisement::with('pictures')->get();
-// $data= DB::select('select advertisement.* , picture.advertisement_photo_path ,model.name as model_name, make_years.year as m_year, make.name as make_name
-//                     from advertisement
-//                     inner join picture on picture.adv_id = advertisement.id
-//                     inner join model on advertisement.model_id = model.id
-//                     inner join make_years on model.make_years_id = make_years.id
-//                     inner join make on make_years.make_id = make.id');
-
-
-//return AdsResource::collection($ads);
-
-
         $adv= Advertisement::all();
         $data=collect();
         foreach($adv as $a){
@@ -37,8 +24,6 @@ class AdvetiseController extends Controller
             $year=$a->year();
             $make=$a->make();
             $dealer=$a->dealership()->get('name');
-           // $pictures[]=$a->pictures()->get();
-       //   $pictures=$a->pictures()->get();
             $data->push([
                 'id '=> $a->id,
                 'type'=>$a->type,

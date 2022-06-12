@@ -8,6 +8,7 @@ use App\Models\make;
 use App\Models\make_years;
 use App\Models\moodel;
 use App\Models\dealership;
+use League\CommonMark\Node\Query\OrExpr;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Models\dealership;
 |
 */
 
-
+$canlog='isAdmin';
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -38,6 +39,7 @@ Route::middleware([
             return view('Admin_Dashboard');
         } elseif (Auth::user()->type === 'employee') {
             return view('dashboard');
+
         } else {
 
             return redirect()->route('logout1');
@@ -61,27 +63,6 @@ Route::middleware([
 });
 
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-//     'isAdmin',
-// ])->group(function () {
-
-//     Route::resource('dealership', dealership_controller::class);
-//     // Route::get('dealership/edit/{id}','App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
-
-//     //   Route::POST('dealership/destroy/{id}','App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
-// });
-
-// $models=  make::find(1)->models()->unique('name');
-// foreach($models as $m)
-// echo $m;
-
-
-
-
-
 ////Route Of Users///
 
 
@@ -96,12 +77,11 @@ Route::middleware([
 });
 
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'isAdmin',
+    'isEmployeeOrAdmin',
 ])->group(function () {
 
     Route::get('ads', 'App\Http\Controllers\AdvertiseController@index')->name('ads');
@@ -159,3 +139,13 @@ Route::middleware([
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isEmployeeOrAdmin',
+])->group(function () {
+    Route::get('dealership/edit/{dealership}', 'App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
+    Route::put('dealership/update/{dealership}', 'App\Http\Controllers\dealership_controller@update')->name('dealership.update');
+});

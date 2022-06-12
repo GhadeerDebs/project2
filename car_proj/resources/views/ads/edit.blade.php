@@ -107,6 +107,7 @@ $gearboxArray=['automatic', 'manual'];
                     </div>
                   </div>
                   <div class="form-row">
+                    @if(Auth::user()->type=='admin')
                     <div class="col-md-6 mb-3">
                         <label for="exampleFormControlInput1">dealership</label>
 
@@ -116,7 +117,7 @@ $gearboxArray=['automatic', 'manual'];
                             @endforeach
                         </select>
                     </div>
-
+                    @endif
 
                         <div class="form-row">
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\dealership;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class dealership_controller extends Controller
 {
@@ -61,23 +62,15 @@ class dealership_controller extends Controller
 
     public function edit(dealership $dealership)
     {
-
-
-        //  $dealership=dealership::where('id',$this->id);
-        //  $dealership=dealership::where('id',$dealership->id)->first();
-        if ($dealership === null) {
-            return redirect()->back();
-        } else
-            return view('Dealership.edit')->with('dealership', $dealership);
+        if((Auth::user()->type=='admin') || (Auth::user()->type=='employee' && Auth::user()->dealership_id==$dealership->id)){
+            if ($dealership === null) {
+                return redirect()->back();
+            } else
+                return view('Dealership.edit')->with('dealership', $dealership);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\dealership  $dealership
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, dealership $dealership)
     {
         //$dealership=dealership::find($id);
