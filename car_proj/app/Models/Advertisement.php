@@ -44,9 +44,15 @@ public function make(){
         return $this->hasMany(Picture::class,'adv_id','id');
     }
 
-    public function users_save()
-    {
+    // public function users_save()
+    // {
 
-        return $this->belongsToMany(User::class, 'favorite');
+    //     return $this->belongsToMany(User::class, 'favorite');
+    // }
+    public function favorites()
+    {
+        return $this->belongsToMany(Favorite::class,'adv_id','id');
     }
+
+
 }

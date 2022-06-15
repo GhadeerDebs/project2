@@ -63,6 +63,8 @@ class AdvertiseController extends Controller
             'color'           => $request->color,
             'dealership_id'   => $request->dealership_id,
             'model_id'        => $request->model_id,
+            'equipment'       => $request->equipment,
+            'entertainment_equipment' => $request->entertainment_equipment,
 
 
         ]);}
@@ -88,7 +90,8 @@ class AdvertiseController extends Controller
                 'color'           => $request->color,
                 'dealership_id'   => Auth::user()->dealership_id,
                 'model_id'        => $request->model_id,
-
+                'equipment'       => $request->equipment,
+                'entertainment_equipment' => $request->entertainment_equipment,
 
             ]);
         }
@@ -184,6 +187,8 @@ class AdvertiseController extends Controller
         $ads->weight          = $request->weight;
         $ads->gearbox         = $request->gearbox;
         $ads->color          = $request->color;
+        $ads->equipment       = $request->equipment;
+        $ads->entertainment_equipment = $request->entertainment_equipment;
         if($request->has('model_id')){
         $ads->model_id        = $request->model_id;
         }

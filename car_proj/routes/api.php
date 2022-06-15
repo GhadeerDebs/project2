@@ -44,11 +44,14 @@ Route::middleware([
     'isUser',
 ])->group(function () {
 
+    Route::post('/add2favorite', [App\Http\Controllers\API\FavoriteController::class, 'addAd2Favorite']);
 
+    Route::get('/favorite/{id}', [App\Http\Controllers\API\FavoriteController::class, 'userFavoriteAds']);
+
+    Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
+    Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);
+    Route::get('/dealerships', [App\Http\Controllers\API\DealershipController::class, 'index']);
+    Route::get('/dealerships/{id}', [App\Http\Controllers\API\DealershipController::class, 'show']);
 
 
 });
-Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);
-Route::get('/ads/{id}', [App\Http\Controllers\API\AdvetiseController::class, 'show']);
-Route::get('/dealerships', [App\Http\Controllers\API\DealershipController::class, 'index']);
-Route::get('/dealerships/{id}', [App\Http\Controllers\API\DealershipController::class, 'show']);
