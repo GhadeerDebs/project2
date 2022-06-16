@@ -75,8 +75,9 @@ return response()->json([
 ],210);
     }
 
-    public function removeAdfromFavorite($id){
-        $fav = Favorite::where('id', $id)->first();
+    public function removeAdfromFavorite($userid,$adid){
+        $fav=Favorite::where('user_id','=', $userid)->where('adv_id','=',$adid)->first();
+       // $fav = Favorite::where('id', $id)->first();
         if ($fav === null) {
             return response()
             ->json(['data' => 'not found'],401);

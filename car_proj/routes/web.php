@@ -148,4 +148,13 @@ Route::middleware([
 ])->group(function () {
     Route::get('dealership/edit/{dealership}', 'App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
     Route::put('dealership/update/{dealership}', 'App\Http\Controllers\dealership_controller@update')->name('dealership.update');
+
+    //employee
+
+    Route::get('employee', 'App\Http\Controllers\EmployeeController@index_e')->name('Employee');
+    Route::get('employee/create', 'App\Http\Controllers\EmployeeController@create_e')->name('Employee.create');
+    Route::post('employee/store', 'App\Http\Controllers\EmployeeController@store_e')->name('Employee.store');
+    Route::get('employee/destroy/{id}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
+    Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
+    Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
 });

@@ -201,10 +201,18 @@ class AdvertiseController extends Controller
     {
         //
         $ads = ad::where('id', $ads->id)->first();
-        if ($ads === null) {
-            return redirect()->back();
+        if(Auth::user()->type=='employee' && Auth::user()->dealership_id==$ads->dealership_id){
+            if ($ads === null) {
+                return redirect()->back();
+            }
+            $ads->delete();
         }
-        $ads->delete();
+        if(Auth::user()->type=='admin'){
+            if ($ads === null) {
+                return redirect()->back();
+            }
+            $ads->delete();
+        }
         return redirect()->back();
     }
 }

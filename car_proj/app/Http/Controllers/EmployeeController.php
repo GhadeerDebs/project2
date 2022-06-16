@@ -19,7 +19,15 @@ class EmployeeController extends Controller
     public function index_e()
     {
         //
+        $user=Auth::user();
+        $dealerID=$user->dealership_id;
+        $type=$user->type;
+        if($type=='employee'){
+            $users= User::orderby('created_at', 'DESC')->where('dealership_id',$dealerID)->get();
+        }else{
+
         $users = User::where('type', 'employee')->get();
+    }
         return view('employee.index')->with('users', $users);
     }
     public function index_a()
@@ -45,6 +53,7 @@ class EmployeeController extends Controller
     public function store_e(Request $request)
     {
 
+
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
@@ -61,14 +70,31 @@ class EmployeeController extends Controller
         $newphoto = time() . $photo->getClientOriginalName();
         $photo->move('emp', $newphoto);
 
-        $user = User::create([
+        $user=Auth::user();
+        $dealerID=$user->dealership_id;
+        $type=$user->type;
+        if($type=='employee'){
+            $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'type' => $employee,
+            'dealership_id' => $dealerID,
             'photo' => 'emp/' . $newphoto
         ]);
+        }else{
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'type' => $employee,
+                'photo' => 'emp/' . $newphoto
+            ]);
+
+        }
+
 
 
         return redirect()->back();
@@ -127,17 +153,27 @@ class EmployeeController extends Controller
 
     public function update(Request $request, User $user)
     {
-
         $user = User::find($user->id);
-        //dd($request->name);
+        if(Auth::user()->type=='employee'){
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email',
+                // 'type' => 'required'
+
+            ]);
+            $user->dealership_id=Auth::user()->dealership_id;
+
+        }
+        if(Auth::user()->type=='admin'){
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
-            // 'type' => 'required'
+
 
         ]);
 
-
+    }
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->has('password')) {
@@ -153,10 +189,17 @@ class EmployeeController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $emp = User::find($id);
-        $emp->destroy($id);
+        if(Auth::user()->type=='employee' && Auth::user()->dealership_id== $user->dealership_id){
+            $emp = User::find($user->id);
+            $emp->destroy($user->id);
+        }
+        if(Auth::user()->type=='admin'){
+            $emp = User::find($user->id);
+            $emp->destroy($user->id);
+        }
+
 
         return redirect()->back();
     }
