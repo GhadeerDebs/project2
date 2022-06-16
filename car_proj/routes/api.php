@@ -45,7 +45,7 @@ Route::middleware([
 ])->group(function () {
 
     Route::post('/add2favorite', [App\Http\Controllers\API\FavoriteController::class, 'addAd2Favorite']);
-
+    Route::post('/removeFromfavorite/{id}', [App\Http\Controllers\API\FavoriteController::class, 'removeAdfromFavorite']);
     Route::get('/favorite/{id}', [App\Http\Controllers\API\FavoriteController::class, 'userFavoriteAds']);
 
     Route::get('/ads', [App\Http\Controllers\API\AdvetiseController::class, 'index']);

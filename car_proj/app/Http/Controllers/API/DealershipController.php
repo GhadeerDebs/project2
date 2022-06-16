@@ -34,6 +34,7 @@ class DealershipController extends Controller{
                 'created_at'=>$a->created_at,
                 'updated_at'=>$a->updated_at,
                 'dealership_id'=>$a->dealership_id,
+                'dealership_name'=>$dealer[0]['name'],
                 'equipment' => $a->equipment,
                 'entertainment_equipment' =>$a->entertainment_equipment,
                 'model' => $model[0]['name'],

@@ -23,13 +23,21 @@ class FavoriteController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
-        $favorite = Favorite::create([
-            'user_id' => $request->user_id,
-            'adv_id' => $request->adv_id,
-        ]);
-        return response()
+        $fav=Favorite::where('user_id','=', $request->user_id)->where('adv_id','=',$request->adv_id)->get();
+        if($fav->isEmpty()){
+            $favorite = Favorite::create([
+                'user_id' => $request->user_id,
+                'adv_id' => $request->adv_id,
+            ]);
+            return response()
         ->json(['data' => $favorite],201);
-    }
+
+
+        }
+        else {
+            return response()
+            ->json(['data' => 'the ad is alreay exist '],401);
+    }}
     public function userFavoriteAds($user_id){
         $ads=Advertisement::join('favorite','favorite.adv_id','=','advertisement.id')
                         ->join('users','users.id','=','favorite.user_id')
@@ -52,6 +60,7 @@ class FavoriteController extends Controller
                 'created_at'=>$a->created_at,
                 'updated_at'=>$a->updated_at,
                 'dealership_id'=>$a->dealership_id,
+                'dealership_name'=>$dealer[0]['name'],
                 'equipment' => $a->equipment,
                 'entertainment_equipment' =>$a->entertainment_equipment,
                 'model' => $model[0]['name'],
@@ -64,6 +73,18 @@ class FavoriteController extends Controller
 return response()->json([
 'data '=>$data
 ],210);
+    }
+
+    public function removeAdfromFavorite($id){
+        $fav = Favorite::where('id', $id)->first();
+        if ($fav === null) {
+            return response()
+            ->json(['data' => 'not found'],401);
+        }
+        $fav->delete();
+        return response()
+        ->json(['data' => 'deleted'],201);
+
     }
 
 }
