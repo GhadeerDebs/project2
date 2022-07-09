@@ -42,9 +42,13 @@
                         {{ __('Admin  ') }}
                     </x-jet-nav-link>
                     @endif
+                    @if(Auth::user()->type=='employee')
+                    <x-jet-nav-link href="{{ route('dealership.edit',['dealership'=>Auth::user()->dealership_id])}}" :active="request()->routeIs('editdealer')">
+                        {{ __('Dealership  ') }}
+                    </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
-
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

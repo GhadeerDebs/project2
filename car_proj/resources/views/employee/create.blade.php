@@ -21,6 +21,16 @@
             <label for="phone" value="{{ __('phone') }}">Phone</label>
             <input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
         </div>
+        @if(Auth::user()->type=='admin')
+        <div class="mt-4">
+            <label for="phone" value="{{ __('dealership_id') }}">Dealership</label>
+            <select class="form-control" name="type">
+                @foreach($dealerships as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        @endif
 
         <div class="mt-4">
             <label for="password" value="{{ __('Password') }}">Password</label>

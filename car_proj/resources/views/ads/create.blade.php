@@ -121,7 +121,8 @@ $gearboxArray=['automatic', 'manual'];
                   @endif
 
                     <div class="col-md-6 mb-3">
-                        <livewire:make-makeyears-model-dropdown/>
+                        @livewire('make-makeyears-model-dropdown', ['id' => null]);
+                        {{-- <livewire:make-makeyears-model-dropdown/> --}}
                     {{-- <label for="exampleFormControlInput1">model_id</label>
 
                     <select class="form-control" name="model_id">

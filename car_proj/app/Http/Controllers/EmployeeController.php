@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\AUTH;
 use Laravel\Fortify\Rules\Password;
+use App\Models\dealership;
 
 class EmployeeController extends Controller
 {
@@ -43,7 +44,8 @@ class EmployeeController extends Controller
      */
     public function create_e()
     {
-        return view('employee.create');
+        $dealers=dealership::all();
+        return view('employee.create')->with('dealerships',$dealers);
     }
     public function create_a()
     {
@@ -54,26 +56,27 @@ class EmployeeController extends Controller
     {
 
 
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
-            'phone' => ['required', 'digits:10'],
-            'photo' => 'required|image',
-            //  'type' => 'required'
-        ]);
 
 
-        $employee = 'employee';
 
-        $photo =  $request->file('photo');
-        $newphoto = time() . $photo->getClientOriginalName();
-        $photo->move('emp', $newphoto);
 
         $user=Auth::user();
         $dealerID=$user->dealership_id;
         $type=$user->type;
         if($type=='employee'){
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
+                'phone' => ['required', 'digits:10'],
+                'photo' => 'required|image',
+            ]);
+            $employee = 'employee';
+
+            $photo =  $request->file('photo');
+            $newphoto = time() . $photo->getClientOriginalName();
+            $photo->move('emp', $newphoto);
+
             $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -84,13 +87,27 @@ class EmployeeController extends Controller
             'photo' => 'emp/' . $newphoto
         ]);
         }else{
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
+                'phone' => ['required', 'digits:10'],
+                'photo' => 'required|image',
+                'dealership_id' => 'required',
+            ]);
+            $employee = 'employee';
+
+            $photo =  $request->file('photo');
+            $newphoto = time() . $photo->getClientOriginalName();
+            $photo->move('emp', $newphoto);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'type' => $employee,
-                'photo' => 'emp/' . $newphoto
+                'photo' => 'emp/' . $newphoto,
+                'dealership_id' => $request->dealership_id,
             ]);
 
         }
@@ -147,7 +164,8 @@ class EmployeeController extends Controller
         if ($user === null) {
             return redirect()->back();
         }
-        return view('user.edit')->with('user', $user);
+        $dealers=dealership::all();
+        return view('employee.edit')->with('user', $user)->with('dealerships',$dealers);
     }
 
 
@@ -169,6 +187,7 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
+            'dealership_id' => 'required',
 
 
         ]);
@@ -176,6 +195,7 @@ class EmployeeController extends Controller
     }
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->dealership_id=$request->dealership_id;
         if ($request->has('password')) {
             $user->password = sha1($request->password);
             $user->save();
@@ -183,6 +203,7 @@ class EmployeeController extends Controller
         $user->forceFill([
             'name' =>  $request->name,
             'email' => $request->email,
+            'dealership_id' =>$request->dealership_id,
             // 'phone'=> $request->phone,
         ])->save();
 

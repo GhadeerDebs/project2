@@ -7,7 +7,7 @@
             <div class="col">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
-                        <h1 class="display-4">All Users</h1>
+                        <h1 class="display-4">All Employees</h1>
                     </div>
                 </div>
                 <a href="{{ route('Employee.create') }} ">

@@ -37,6 +37,9 @@ $gearboxArray=['automatic', 'manual'];
             <div class="row">
                 <div class="col">
                     <form action="{{route('ads.update',$ads->id)}}" method="POST" >
+                        @php
+                        $id=$ads->id;
+                        @endphp
                  {{ csrf_field() }}
                  @method('POST')
                   <div class="form-row">
@@ -124,7 +127,9 @@ $gearboxArray=['automatic', 'manual'];
                             <p>if you want to edit current model " {{$ads->model->name}} " select from dropdown below</p>
                             <div class="col-md-6 mb-3">
 
-                        <livewire:make-makeyears-model-dropdown/>
+                        {{-- <livewire:edit/> --}}
+                        @livewire('make-makeyears-model-dropdown', ['id' => $id]);
+                        {{-- <livewire:make-makeyears-model-dropdown/> --}}
                         </div>
                         {{--
                     <label for="exampleFormControlInput1" >model</label>

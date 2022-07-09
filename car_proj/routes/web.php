@@ -158,3 +158,4 @@ Route::middleware([
     Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
     Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
 });
+Route::get('/dd/{id}', 'App\Http\Livewire\MakeMakeyearsModelDropdown');
