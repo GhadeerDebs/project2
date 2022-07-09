@@ -14,6 +14,7 @@ class make_years extends Model
 
     public $table = "make_years";
 
+<<<<<<< HEAD
 
 
     protected $fillable = ['	year', 'make_id'];
@@ -22,4 +23,10 @@ class make_years extends Model
 
         return $this->belongsTo(make::class);
     }
+=======
+        return $this->belongsTo(make::class,'make_id','id')->get();
+
+   }
+
+>>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
 }

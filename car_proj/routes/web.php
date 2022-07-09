@@ -21,7 +21,11 @@ use League\CommonMark\Node\Query\OrExpr;
 |
 */
 
+<<<<<<< HEAD
 $canlog = 'isAdmin';
+=======
+$canlog='isAdmin';
+>>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -39,6 +43,7 @@ Route::middleware([
             return view('Admin_Dashboard');
         } elseif (Auth::user()->type === 'employee') {
             return view('dashboard');
+
         } else {
 
             return redirect()->route('logout1');
@@ -143,4 +148,28 @@ Route::middleware([
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
+<<<<<<< HEAD
 Route::get('dropdown', MakeMakeyearsModelDropdown::class);
+=======
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isEmployeeOrAdmin',
+])->group(function () {
+    Route::get('dealership/edit/{dealership}', 'App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
+    Route::put('dealership/update/{dealership}', 'App\Http\Controllers\dealership_controller@update')->name('dealership.update');
+
+    //employee
+
+    Route::get('employee', 'App\Http\Controllers\EmployeeController@index_e')->name('Employee');
+    Route::get('employee/create', 'App\Http\Controllers\EmployeeController@create_e')->name('Employee.create');
+    Route::post('employee/store', 'App\Http\Controllers\EmployeeController@store_e')->name('Employee.store');
+    Route::get('employee/destroy/{id}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
+    Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
+    Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
+});
+Route::get('/dd/{id}', 'App\Http\Livewire\MakeMakeyearsModelDropdown');
+>>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b

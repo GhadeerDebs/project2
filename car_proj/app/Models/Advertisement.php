@@ -42,9 +42,6 @@ class Advertisement extends Model
     }
     public function pictures()
     {
-
-        // return $this->hasMany(Picture::class)->join('Picture', 'advertisement.id', '=','Picture.adv_id')
-        // ->select('Picture.advertisement_photo_path')->get()->unique('name');
         return $this->hasMany(Picture::class, 'adv_id', 'id');
     }
 

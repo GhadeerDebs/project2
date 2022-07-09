@@ -248,7 +248,8 @@
                   @endif
 
                     <div class="col-md-6 mb-3">
-                        <livewire:make-makeyears-model-dropdown/>
+                        @livewire('make-makeyears-model-dropdown', ['id' => null]);
+                        {{-- <livewire:make-makeyears-model-dropdown/> --}}
                     {{-- <label for="exampleFormControlInput1">model_id</label>
 >>>>>>> f8419bff38c69f3d5cbc79137ef3703c0bcf95f1
 

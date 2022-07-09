@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'users')
+@section('title', 'employee')
 
 @section('content')
     <div class="container" style="padding-top: 4%">
@@ -15,7 +15,16 @@
                 <input type="text" class="form-control" name="email" value="{{ $user->email }}">
             </div>
 
-
+            @if(Auth::user()->type=='admin')
+            <div class="mt-4">
+                <label >Dealership</label>
+                <select class="form-control" name="dealership_id">
+                    @foreach($dealerships as $item)
+                    <option value="{{$item->id}}" {{($user->dealership_id == $item->id)?'selected':'' }}>{{$item->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
             <div class="form-group">
                 <label for="exampleFormControlInput1">Password</label>
                 <input type="password" class="form-control" name="password">

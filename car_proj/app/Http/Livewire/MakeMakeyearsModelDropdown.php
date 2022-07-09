@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\make;
 use App\Models\make_years;
 use App\Models\moodel;
+use App\Models\Advertisement;
 
 class MakeMakeyearsModelDropdown extends Component
 {
@@ -15,12 +16,16 @@ class MakeMakeyearsModelDropdown extends Component
     public $moodels;
     public $selectedmake = NULL;
     public $selectedmakeyears = NULL;
+    public $ads;
 
-    public function mount()
+    public $a;
+    public function mount($id)
     {
+
         $this->makes = make::all();
         $this->makes_years = collect();
         $this->moodels = collect();
+        $this->ads = Advertisement::find($id);
     }
 
     public function render()

@@ -35,6 +35,7 @@
             </div>
             <div class="row">
                 <div class="col">
+<<<<<<< HEAD
                     <form action="{{ route('ads.update', $ads) }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         @method('PUT')
@@ -54,6 +55,93 @@
                                     value="{{ $ads->engine_capacity }}">
                             </div>
                         </div>
+=======
+                    <form action="{{route('ads.update',$ads->id)}}" method="POST" >
+                        @php
+                        $id=$ads->id;
+                        @endphp
+                 {{ csrf_field() }}
+                 @method('POST')
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">type</label>
+                        <select class="form-control" name="type"  >
+                            @foreach($typeArray as $item)
+                            <option value="{{$item}}" {{($ads->type == $item)?'selected':'' }}> {{$item}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlTextarea1">engine_capacity</label>
+                        <input type="form-control" class="form-control" name="engine_capacity" value="{{$ads->engine_capacity}}">
+                    </div>
+                  </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlInput1">engine_power</label>
+                            <input type="form-control" class="form-control" name="engine_power" value="{{$ads->engine_power}}">
+                         </div>
+
+                         <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlInput1">weight</label>
+                            <input type="form-control" class="form-control" name="weight" value="{{$ads->weight}}">
+
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="exampleFormControlInput1">Color</label>
+                        <input type="form-control" class="form-control" name="color" value="{{$ads->color}}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                    <label>Choose Images</label>
+                    <input type="file"  name="advertisement_photo_path[]"id="exampleFile" type="file" accept="image/*" multiple>
+                    </div>
+
+                 </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">drivetrain</label>
+
+                        <select class="form-control" name="drivetrain"  >
+                            @foreach($drivetrainArray as $item)
+                            <option value="{{$item}}" {{($ads->drivetrain == $item)?'selected':'' }}> {{$item}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">gearbox</label>
+                        <select class="form-control" name="gearbox"  >
+                            @foreach($gearboxArray as $item)
+                            <option value="{{$item}}" {{($ads->gearbox == $item)?'selected':'' }}> {{$item}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">entertainment_equipment</label>
+                        <textarea class="form-control" name="entertainment_equipment" >{{$ads->entertainment_equipment}}</textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">Basic_equipment</label>
+                        <textarea class="form-control" name="equipment" >{{$ads->equipment}}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    @if(Auth::user()->type=='admin')
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleFormControlInput1">dealership</label>
+
+                        <select class="form-control" name="dealership_id">
+                            @foreach($dealerships as $item)
+                            <option value="{{$item->id}}" {{($ads->dealership_id == $item->id)?'selected':'' }}>{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+>>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
 
                         <div class="form-row">
                             <div class="col-md-3 mb-3">
@@ -78,6 +166,7 @@
                                     accept="image/*" multiple>
                             </div>
 
+<<<<<<< HEAD
 
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
@@ -140,6 +229,11 @@
                                     </div>
                                 </div>
                             </div>
+=======
+                        {{-- <livewire:edit/> --}}
+                        @livewire('make-makeyears-model-dropdown', ['id' => $id]);
+                        {{-- <livewire:make-makeyears-model-dropdown/> --}}
+>>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
                         </div>
                         <div>
                             @if (count($ads->pictures) > 0)
