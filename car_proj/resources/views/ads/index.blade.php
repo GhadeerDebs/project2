@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Dealerships')
+@section('title', 'Ads')
 
 @section('content')
     <div class="container">
@@ -47,32 +47,47 @@
                                     <td>{{ $item->gearbox }}</td>
                                     <td>
                                         @foreach ($images as $image)
-                                        @if($image->adv_id==$item->id)
-                                        <img src="  {{ $image->advertisement_photo_path }}" alt="  {{$item->advertisement_photo_path }}"
-                                        class="img-tumbnail" width="100" height="100">
-                                        @endif
+                                            @if ($image->adv_id == $item->id)
+                                                <img src="  {{ $image->advertisement_photo_path }}"
+                                                    alt="  {{ $item->advertisement_photo_path }}" class="img-tumbnail"
+                                                    width="100" height="100">
+                                            @endif
                                         @endforeach
 
-                                            {{-- {{$item->pictures->adv_id}} --}}
-                                            {{-- {{$item->pictures->id}} --}}
+                                        {{-- {{$item->pictures->adv_id}} --}}
+                                        {{-- {{$item->pictures->id}} --}}
                                     </td>
 
                                     <td>
                                         <a href="{{ route('ads.show', $item->id) }}"><button
                                                 class="btn btn-info">show</button></a>
                                         <a href="{{ route('ads.edit', $item->id) }}"><button
+<<<<<<< Updated upstream
                                                 class="btn btn-warning">Edit</button></a>
-                                        {{-- <a href="{{ route('ads.destroy', $item->id) }}"><button
-                                            class="btn btn-Danger">Delete</button></a>&nbsp;&nbsp; --}}
+                                        <a href="{{ route('ads.destroy', $item->id) }}"><button
+                                                class="btn btn-danger">Delete</button></a>&nbsp;&nbsp;
 
 
-                                        <form action="{{ route('ads.destroy', $item->id) }}"
+                                        {{-- <form action="{{ route('ads.destroy', $item->id) }}"
                                             onsubmit="return confirm('Are you sure?');"  method="POST">
                                             @csrf
                                             @method('POST')
                                             <button  class="btn btn-danger" type="submit"><i class="fas fa-trash"></i>Delete</button>
-                                        </form>
+                                        </form> --}}
 
+=======
+                                                class="btn btn-warning">Edit</button></a>&nbsp;&nbsp;
+                                        &nbsp;&nbsp;
+                                        <div>
+                                            <form action="{{ route('ads.destroy', $item->id) }}"
+                                                onsubmit="return confirm('Are you sure?');" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <button class="btn btn-danger" type="submit"><i
+                                                        class="fas fa-trash"></i>Delete</button>
+                                            </form>
+                                        </div>
+>>>>>>> Stashed changes
                                     </td>
                                 </tr>
                             @endforeach

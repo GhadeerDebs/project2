@@ -7,13 +7,13 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class AdminorEmployee
 {
 
     public function handle(Request $request, Closure $next)
     {
 
-            if(Auth::user()->type === 'admin')
+            if(Auth::user()->type === 'admin' || Auth::user()->type === 'employee')
         {
             return $next($request);
         }

@@ -8,6 +8,7 @@ use App\Models\make;
 use App\Models\make_years;
 use App\Models\moodel;
 use App\Models\dealership;
+use League\CommonMark\Node\Query\OrExpr;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Models\dealership;
 |
 */
 
-
+$canlog = 'isAdmin';
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -61,27 +62,6 @@ Route::middleware([
 });
 
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-//     'isAdmin',
-// ])->group(function () {
-
-//     Route::resource('dealership', dealership_controller::class);
-//     // Route::get('dealership/edit/{id}','App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
-
-//     //   Route::POST('dealership/destroy/{id}','App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
-// });
-
-// $models=  make::find(1)->models()->unique('name');
-// foreach($models as $m)
-// echo $m;
-
-
-
-
-
 ////Route Of Users///
 
 
@@ -96,24 +76,29 @@ Route::middleware([
 });
 
 
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'isAdmin',
+    'isEmployeeOrAdmin',
 ])->group(function () {
 
     Route::get('ads', 'App\Http\Controllers\AdvertiseController@index')->name('ads');
     Route::get('ads/create', 'App\Http\Controllers\AdvertiseController@create')->name('ads.create');
     Route::post('ads/store', 'App\Http\Controllers\AdvertiseController@store')->name('ads.store');
-    Route::post('ads/update/{ads}', 'App\Http\Controllers\AdvertiseController@update')->name('ads.update');
+    Route::put('ads/update/{ads}', 'App\Http\Controllers\AdvertiseController@update')->name('ads.update');
     Route::get('ads/show/{ads}', 'App\Http\Controllers\AdvertiseController@show')->name('ads.show');
-    Route::post('ads/destroy/{ads}', 'App\Http\Controllers\AdvertiseController@destroy')->name('ads.destroy');
+    // Route::post('ads/destroy/{ads}', 'App\Http\Controllers\AdvertiseController@destroy')->name('ads.destroy');
     Route::get('ads/edit/{ads}', 'App\Http\Controllers\AdvertiseController@edit')->name('ads.edit');
-
+    Route::get('ads/deleteimage/{id}', 'App\Http\Controllers\AdvertiseController@deleteimage')->name('deleteimage');
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
+    Route::get('ads/delete/{id}', 'App\Http\Controllers\AdvertiseController@destroy')->name('ads.destroy');
 
+
+    // Route::get('dealership/destroy/{id}', 'App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
+
+
+    // Route::put('/update/{id}',[PostController::class,'update']);
 });
 
 
@@ -158,4 +143,4 @@ Route::middleware([
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
-
+Route::get('dropdown', MakeMakeyearsModelDropdown::class);

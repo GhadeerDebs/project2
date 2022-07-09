@@ -10,11 +10,12 @@ use App\Models\Advertisement;
 class Picture extends Model
 {
     use HasFactory;
-         public $table = "picture";
-         protected $fillable = [
-            'advertisement_photo_path', 'adv_id'
-           ];
-     public function Advertisement(){
-         return $this->belongsTo('App\Models\Advertisement','adv_id');
+    public $table = "picture";
+    protected $fillable = [
+        'advertisement_photo_path', 'adv_id'
+    ];
+    public function Advertisement()
+    {
+        return $this->belongsTo('App\Models\Advertisement', 'adv_id', 'id');
     }
 }

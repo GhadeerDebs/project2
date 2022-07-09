@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\make;
 use App\Models\make_years;
 use App\Models\moodel;
+
 class MakeMakeyearsModelDropdown extends Component
 {
     public $makes;
@@ -38,5 +39,4 @@ class MakeMakeyearsModelDropdown extends Component
             $this->moodels = moodel::where('make_years_id', $make_years)->get();
         }
     }
-
 }

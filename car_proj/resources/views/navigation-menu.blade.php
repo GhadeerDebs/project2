@@ -12,31 +12,36 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
+
+
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('order') }}" :active="request()->routeIs('order')">
-                        {{ __('order    ') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('dealership') }}" :active="request()->routeIs('dealership')">
                         {{ __('dealership   ') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
-                        {{ __('Users  ') }}
-                    </x-jet-nav-link>
-<<<<<<< Updated upstream
-                    <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('user')">
-=======
+                    @endif
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
+                            {{ __('Users  ') }}
+                        </x-jet-nav-link>
+                        <<<<<<< HEAD <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('ads')">
+                            <<<<<<< Updated upstream=======>>>>>>> Stashed changes
+                                =======
+                    @endif
                     <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('ads')">
->>>>>>> Stashed changes
+                        >>>>>>> f8419bff38c69f3d5cbc79137ef3703c0bcf95f1
                         {{ __('Advertisemenet  ') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('Employee') }}" :active="request()->routeIs('Employee')">
                         {{ __('Employee  ') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('Admin') }}" :active="request()->routeIs('Admin')">
-                        {{ __('Admin  ') }}
-                    </x-jet-nav-link>
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-nav-link href="{{ route('Admin') }}" :active="request()->routeIs('Admin')">
+                            {{ __('Admin  ') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
