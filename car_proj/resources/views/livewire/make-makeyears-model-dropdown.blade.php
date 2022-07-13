@@ -4,13 +4,8 @@
         <label for="state" class="col-md-4 col-form-label text-md-right">Make</label>
         <div class="col-md-6">
             <select wire:model="selectedmake" class="form-control">
-<<<<<<< HEAD
-                <option value="" selected>Choose Make Company</option>
-                @foreach ($makes as $make)
-=======
                 <option value="" selected>Choose Make</option>
                 @foreach($makes as $make)
->>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
                     <option value="{{ $make->id }}">{{ $make->name }}</option>
                 @endforeach
             </select>
@@ -22,13 +17,8 @@
 
             <div class="col-md-6">
                 <select wire:model="selectedmakeyears" class="form-control" name="make_years_id">
-<<<<<<< HEAD
-                    <option value="" selected>Choose make years</option>
-                    @foreach ($makes_years as $make_years)
-=======
                     <option value="" selected>Choose Years</option>
                     @foreach($makes_years as $make_years)
->>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
                         <option value="{{ $make_years->id }}">{{ $make_years->year }}</option>
                     @endforeach
                 </select>
@@ -39,18 +29,6 @@
         <div class="form-group row">
             <label for="city" class="col-md-4 col-form-label text-md-right">model</label>
 
-<<<<<<< HEAD
-            <div class="col-md-6">
-                <select class="form-control" name="model_id">
-                    <option value="" selected>Choose model</option>
-                    @foreach ($moodels as $moodel)
-                        <option value="{{ $moodel->id }}">{{ $moodel->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    @endif
-=======
         <div class="col-md-6">
             <select class="form-control" name="model_id">
                     <option value="" selected>Choose Moodel</option>
@@ -67,7 +45,7 @@
     <label for="state" class="col-md-4 col-form-label text-md-right">Make</label>
     <div class="col-md-6">
         <select wire:model="selectedmake" class="form-control">
-            <option value="{{$ads->make()[0]->id }}" >{{ $ads->make()[0]->name }}</option>
+            <option value="{{$ads->make()->first()->id }}" >{{ $ads->make()->first()->name }}</option>
             @foreach($makes as $make)
                 <option value="{{ $make->id }}">{{ $make->name }}</option>
             @endforeach
@@ -99,5 +77,4 @@
     </div>
 </div>
 @endif
->>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
 </div>

@@ -13,7 +13,7 @@ class dealership extends Model
 
     public $table = "dealership";
     protected $fillable=[
-        'name' , 'location' , 'phone' , "dealer_photo_path"
+        'name' , 'location' , 'phone' , "dealer_photo_path" ,'startTime' ,'endTime' ,'workdays'
     ];
 
     public function employees(){
@@ -28,6 +28,14 @@ class dealership extends Model
     }
      public function appoinments(){
           return $this->hasMany(Appoinment::class);
+    }
+    public function hour()
+    {
+        return $this->belongsToMany(Hours::class,'dealership_hour','dealership_id','hour_id');
+    }
+    public function hours()
+    {
+        return $this->belongsToMany(Hours::class,'dealership_hour','dealership_id','hour_id')->where('status','=','false')->get();
     }
 
 }

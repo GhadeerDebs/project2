@@ -15,11 +15,7 @@
         "laravel/jetstream": "^2.7",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
-<<<<<<< Updated upstream
-        "livewire/livewire": "^2.10",
-=======
         "livewire/livewire": "*",
->>>>>>> Stashed changes
         "symfony/http-client": "^5.4",
         "symfony/mailgun-mailer": "^5.4"
     },

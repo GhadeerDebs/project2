@@ -21,11 +21,7 @@ use League\CommonMark\Node\Query\OrExpr;
 |
 */
 
-<<<<<<< HEAD
-$canlog = 'isAdmin';
-=======
 $canlog='isAdmin';
->>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -122,13 +118,24 @@ Route::middleware([
     Route::post('employee/store', 'App\Http\Controllers\EmployeeController@store_e')->name('Employee.store');
     Route::post('admin/store', 'App\Http\Controllers\EmployeeController@store_a')->name('Admin.store');
     // Route::Post('employee/destroy/{user}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
-    Route::get('employee/destroy/{id}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
+    Route::get('employee/destroy/{user}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
     Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
     Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isAdmin',
+])->group(function () {
+
+    Route::get('appointment/{id}', 'App\Http\Controllers\HoursController@index')->name('appointment');
+    Route::get('appointment/book/{id}', 'App\Http\Controllers\HoursController@book')->name('appointment.book');
+});
 
 
 Route::middleware([
@@ -148,9 +155,6 @@ Route::middleware([
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
-<<<<<<< HEAD
-Route::get('dropdown', MakeMakeyearsModelDropdown::class);
-=======
 
 
 Route::middleware([
@@ -167,9 +171,8 @@ Route::middleware([
     Route::get('employee', 'App\Http\Controllers\EmployeeController@index_e')->name('Employee');
     Route::get('employee/create', 'App\Http\Controllers\EmployeeController@create_e')->name('Employee.create');
     Route::post('employee/store', 'App\Http\Controllers\EmployeeController@store_e')->name('Employee.store');
-    Route::get('employee/destroy/{id}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
+    Route::get('employee/destroy/{user}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
     Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
-    Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
+    Route::put('employee/update/{user}', 'App\Http\Controllers\EmployeeController@update')->name('Employee.update');
 });
 Route::get('/dd/{id}', 'App\Http\Livewire\MakeMakeyearsModelDropdown');
->>>>>>> b28f7acca28d9173c88cfc168beb41c677c6613b

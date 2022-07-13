@@ -26,6 +26,32 @@
       </div>
       <div class="form-row">
         <div class="col-md-6 mb-3">
+          <label for="validationServer01">Start Time</label>
+          <input type="time" class="form-control is-valid"  name="startTime" value="{{$dealership->startTime}}" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationServer01">End Time</label>
+          <input type="time" class="form-control is-valid"  name="endTime"  value="{{$dealership->endTime}}" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationServer01">Workdays</label>
+          <select class="selectpicker" multiple data-live-search="true" name="workdays[]">
+            <option value="0" {{( $contains = str_contains($dealership->workdays,'0' )!= null)?'selected':''}}>Sunday</option>
+            <option value="1" {{( $contains = str_contains($dealership->workdays,'1' )!= null)?'selected':''}}>Monday</option>
+            <option value="2" {{( $contains = str_contains($dealership->workdays,'2' )!= null)?'selected':''}}>Tuesday</option>
+            <option value="3" {{( $contains = str_contains($dealership->workdays,'3' )!= null)?'selected':''}}>Wednesday</option>
+            <option value="4" {{( $contains = str_contains($dealership->workdays,'4' )!= null)?'selected':''}}>Thursday</option>
+            <option value="5" {{( $contains = str_contains($dealership->workdays,'5' )!= null)?'selected':''}}>Friday</option>
+            <option value="6" {{( $contains = str_contains($dealership->workdays,'6' )!= null)?'selected':''}} >Saturday</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
             <label for="validationServer01">Photo</label>
             <input type="file" class="form-control is-valid"  name="dealer_photo_path"  >
         </div>

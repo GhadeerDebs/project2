@@ -62,32 +62,17 @@
                                         <a href="{{ route('ads.show', $item->id) }}"><button
                                                 class="btn btn-info">show</button></a>
                                         <a href="{{ route('ads.edit', $item->id) }}"><button
-<<<<<<< Updated upstream
-                                                class="btn btn-warning">Edit</button></a>
-                                        <a href="{{ route('ads.destroy', $item->id) }}"><button
-                                                class="btn btn-danger">Delete</button></a>&nbsp;&nbsp;
-
-
-                                        {{-- <form action="{{ route('ads.destroy', $item->id) }}"
-                                            onsubmit="return confirm('Are you sure?');"  method="POST">
-                                            @csrf
-                                            @method('POST')
-                                            <button  class="btn btn-danger" type="submit"><i class="fas fa-trash"></i>Delete</button>
-                                        </form> --}}
-
-=======
                                                 class="btn btn-warning">Edit</button></a>&nbsp;&nbsp;
                                         &nbsp;&nbsp;
                                         <div>
                                             <form action="{{ route('ads.destroy', $item->id) }}"
                                                 onsubmit="return confirm('Are you sure?');" method="POST">
                                                 @csrf
-                                                @method('POST')
+                                                @method('GET')
                                                 <button class="btn btn-danger" type="submit"><i
                                                         class="fas fa-trash"></i>Delete</button>
                                             </form>
                                         </div>
->>>>>>> Stashed changes
                                     </td>
                                 </tr>
                             @endforeach

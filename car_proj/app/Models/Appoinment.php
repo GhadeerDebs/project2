@@ -10,8 +10,12 @@ use App\Models\User;
 class Appoinment extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     public $table = "appoinement";
 
+    protected $fillable=[
+        'start_time' , 'end_time' , 'appoinment_date' , "dealership_id" ,'user_id'
+    ];
 
     public function dealership(){
 
