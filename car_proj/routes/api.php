@@ -53,5 +53,6 @@ Route::middleware([
     Route::get('/dealerships', [App\Http\Controllers\API\DealershipController::class, 'index']);
     Route::get('/dealerships/{id}', [App\Http\Controllers\API\DealershipController::class, 'show']);
 
-
+    Route::post('/appointment', [App\Http\Controllers\API\HoursController::class, 'index']);
+    Route::post('/book', [App\Http\Controllers\API\HoursController::class, 'book']);
 });

@@ -14,7 +14,7 @@ class Appoinment extends Model
     public $table = "appoinement";
 
     protected $fillable=[
-        'start_time' , 'end_time' , 'appoinment_date' , "dealership_id" ,'user_id'
+        'start_time' , 'end_time' , 'appoinment_date' , "dealership_id" ,'user_id' ,'adv_id'
     ];
 
     public function dealership(){
@@ -27,4 +27,9 @@ class Appoinment extends Model
          return $this->belongsTo(User::class);
 
     }
+    public function advs(){
+
+        return $this->belongsTo(Advertisement::class);
+
+   }
 }
