@@ -24,8 +24,21 @@ class HoursController extends Controller{
         $contains = str_contains($dealership->workdays, date('w') );
         if($contains != null){
         $hours=$dealership->hours();
+
+        $data=collect();
+        foreach($hours as $h){
+            $timestamp = strtotime($h->startTime ) + 60*60;
+        $time = date('g:i a', $timestamp);
+            $data->push([
+                'id' => $h->id,
+                'startTime' =>$h->startTime,
+                'endTime' => $time ,
+                'status' => $h->status,
+
+            ]);
+        }
         return response()->json([
-            'data '=>$hours
+            'data '=>$data
             ],210);
         }
         else{

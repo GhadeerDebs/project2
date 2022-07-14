@@ -47,9 +47,9 @@
                         {{ __('Dealership  ') }}
                     </x-jet-nav-link>
                     @endif
-                    <x-jet-nav-link href="{{ route('appointment',['id' => Auth::user()->dealership_id]) }}" :active="request()->routeIs('appointment')">
+                    {{-- <x-jet-nav-link href="{{ route('appointment',['id' => Auth::user()->dealership_id]) }}" :active="request()->routeIs('appointment')">
                         {{ __('Appointment  ') }}
-                    </x-jet-nav-link>
+                    </x-jet-nav-link> --}}
                 </div>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
