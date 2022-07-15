@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Hours;
+use Carbon\Carbon;
 class HoursController extends Controller{
     public function index(Request $request)
     {
@@ -28,10 +29,11 @@ class HoursController extends Controller{
         $data=collect();
         foreach($hours as $h){
             $timestamp = strtotime($h->startTime ) + 60*60;
+            $start_time = Carbon::parse($h->startTime)->format(' g:i a');
         $time = date('g:i a', $timestamp);
             $data->push([
                 'id' => $h->id,
-                'startTime' =>$h->startTime,
+                'startTime' =>$start_time,
                 'endTime' => $time ,
                 'status' => $h->status,
 
