@@ -21,7 +21,7 @@ use League\CommonMark\Node\Query\OrExpr;
 |
 */
 
-$canlog='isAdmin';
+$canlog = 'isAdmin';
 Route::get('/', function () {
     return view('auth/register');
 });
@@ -39,7 +39,6 @@ Route::middleware([
             return view('Admin_Dashboard');
         } elseif (Auth::user()->type === 'employee') {
             return view('dashboard');
-
         } else {
 
             return redirect()->route('logout1');
@@ -87,7 +86,7 @@ Route::middleware([
     Route::get('ads', 'App\Http\Controllers\AdvertiseController@index')->name('ads');
     Route::get('ads/create', 'App\Http\Controllers\AdvertiseController@create')->name('ads.create');
     Route::post('ads/store', 'App\Http\Controllers\AdvertiseController@store')->name('ads.store');
-    Route::put('ads/update/{ads}', 'App\Http\Controllers\AdvertiseController@update')->name('ads.update');
+    Route::post('ads/update/{ads}', 'App\Http\Controllers\AdvertiseController@update')->name('ads.update');
     Route::get('ads/show/{ads}', 'App\Http\Controllers\AdvertiseController@show')->name('ads.show');
     // Route::post('ads/destroy/{ads}', 'App\Http\Controllers\AdvertiseController@destroy')->name('ads.destroy');
     Route::get('ads/edit/{ads}', 'App\Http\Controllers\AdvertiseController@edit')->name('ads.edit');

@@ -21,15 +21,15 @@
                     {{-- <x-jet-nav-link href="{{ route('order') }}" :active="request()->routeIs('order')">
                         {{ __('order    ') }} --}}
                     {{-- </x-jet-nav-link> --}}
-                    @if(Auth::user()->type=='admin')
-                    <x-jet-nav-link href="{{ route('dealership') }}" :active="request()->routeIs('dealership')">
-                        {{ __('dealership   ') }}
-                    </x-jet-nav-link>
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-nav-link href="{{ route('dealership') }}" :active="request()->routeIs('dealership')">
+                            {{ __('dealership   ') }}
+                        </x-jet-nav-link>
                     @endif
-                    @if(Auth::user()->type=='admin')
-                    <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
-                        {{ __('Users  ') }}
-                    </x-jet-nav-link>
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-nav-link href="{{ route('user.index') }}" :active="request()->routeIs('user')">
+                            {{ __('Users  ') }}
+                        </x-jet-nav-link>
                     @endif
                     <x-jet-nav-link href="{{ route('ads') }}" :active="request()->routeIs('ads')">
                         {{ __('Advertisemenet  ') }}
@@ -37,17 +37,20 @@
                     <x-jet-nav-link href="{{ route('Employee') }}" :active="request()->routeIs('Employee')">
                         {{ __('Employee  ') }}
                     </x-jet-nav-link>
-                    @if(Auth::user()->type=='admin')
-                    <x-jet-nav-link href="{{ route('Admin') }}" :active="request()->routeIs('Admin')">
-                        {{ __('Admin  ') }}
-                    </x-jet-nav-link>
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-nav-link href="{{ route('Admin') }}" :active="request()->routeIs('Admin')">
+                            {{ __('Admin  ') }}
+                        </x-jet-nav-link>
                     @endif
-                    @if(Auth::user()->type=='employee')
-                    <x-jet-nav-link href="{{ route('dealership.edit',['dealership'=>Auth::user()->dealership_id])}}" :active="request()->routeIs('editdealer')">
-                        {{ __('Dealership  ') }}
-                    </x-jet-nav-link>
+                    @if (Auth::user()->type == 'employee')
+                        <x-jet-nav-link
+                            href="{{ route('dealership.edit', ['dealership' => Auth::user()->dealership_id]) }}"
+                            :active="request()->routeIs('editdealer')">
+                            {{ __('Dealership  ') }}
+                        </x-jet-nav-link>
                     @endif
-                    <x-jet-nav-link href="{{ route('appointment',['id' => Auth::user()->dealership_id]) }}" :active="request()->routeIs('appointment')">
+                    <x-jet-nav-link href="{{ route('appointment', ['id' => Auth::user()->dealership_id]) }}"
+                        :active="request()->routeIs('appointment')">
                         {{ __('Appointment  ') }}
                     </x-jet-nav-link>
                 </div>
@@ -175,8 +178,8 @@
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
