@@ -54,4 +54,8 @@ class Advertisement extends Model
     {
         return $this->belongsToMany(Favorite::class, 'adv_id', 'id');
     }
+    public function appointment()
+    {
+        return $this->hasMany(Appoinment::class, 'adv_id', 'id');
+    }
 }
