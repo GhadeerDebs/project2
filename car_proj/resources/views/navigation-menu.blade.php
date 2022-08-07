@@ -47,6 +47,10 @@
                         {{ __('Dealership  ') }}
                     </x-jet-nav-link>
                     @endif
+
+                    <x-jet-nav-link href="{{ route('Modells.index')}}" :active="request()->routeIs('Brands')">
+                        {{ __('Brands  ') }}
+                    </x-jet-nav-link>
                     {{-- <x-jet-nav-link href="{{ route('appointment',['id' => Auth::user()->dealership_id]) }}" :active="request()->routeIs('appointment')">
                         {{ __('Appointment  ') }}
                     </x-jet-nav-link> --}}

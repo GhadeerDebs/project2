@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class moodel extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     public $table = "model";
     protected $fillable = ['name', 'make_years_id'];
 

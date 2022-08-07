@@ -175,4 +175,33 @@ Route::middleware([
     Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
     Route::put('employee/update/{user}', 'App\Http\Controllers\EmployeeController@update')->name('Employee.update');
 });
+/////////models
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'isEmployeeOrAdmin',
+])->group(function () {
+    Route::get('brands', 'App\Http\Controllers\CarModelController@index')->name('Modells.index');
+    Route::get('brands/relative_years/{makeid}', 'App\Http\Controllers\CarModelController@relative_years')->name('Models.relative_years');
+    Route::get('brands/relative_models/{yearid}', 'App\Http\Controllers\CarModelController@relative_model')->name('Models.relative_models');
+    Route::get('brands/create', 'App\Http\Controllers\CarModelController@create')->name('Models.create');
+    Route::get('brands/create_year/{make}', 'App\Http\Controllers\CarModelController@create_year')->name('Models.create_year');
+    Route::get('brands/create_model/{year}', 'App\Http\Controllers\CarModelController@create_model')->name('Models.create_model');
+    Route::post('brands/store', 'App\Http\Controllers\CarModelController@store')->name('Models.store');
+    Route::post('brands/store_year', 'App\Http\Controllers\CarModelController@store_year')->name('Models.store_year');
+    Route::post('brands/store_model', 'App\Http\Controllers\CarModelController@store_model')->name('Models.store_model');
+    Route::get('brands/edit_make/{make}', 'App\Http\Controllers\CarModelController@edit_make')->name('Models.edit_make');
+    Route::get('brands/edit_year/{year}', 'App\Http\Controllers\CarModelController@edit_year')->name('Models.edit_year');
+    Route::get('brands/edit_model/{model}', 'App\Http\Controllers\CarModelController@edit_model')->name('Models.edit_model');
+    Route::put('brands/update_make/{make}', 'App\Http\Controllers\CarModelController@update_make')->name('Models.update_make');
+    Route::put('brands/update_year/{year}', 'App\Http\Controllers\CarModelController@update_year')->name('Models.update_year');
+    Route::put('brands/update_model/{model}', 'App\Http\Controllers\CarModelController@update_model')->name('Models.update_model');
+    Route::get('brands/destroy/{make}', 'App\Http\Controllers\CarModelController@destroy_make')->name('Models.destroy_make');
+    Route::get('brands/destroy_year/{year}', 'App\Http\Controllers\CarModelController@destroy_year')->name('Models.destroy_year');
+    Route::get('brands/destroy_model/{model}', 'App\Http\Controllers\CarModelController@destroy_model')->name('Models.destroy_model');
+
+});
+
+
 Route::get('/dd/{id}', 'App\Http\Livewire\MakeMakeyearsModelDropdown');

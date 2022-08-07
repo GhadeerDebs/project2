@@ -10,7 +10,7 @@ use App\Models\make_years;
 class make extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     public $table = "make";
 
 
