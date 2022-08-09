@@ -49,15 +49,15 @@
                             {{ __('Dealership  ') }}
                         </x-jet-nav-link>
                     @endif
-<<<<<<< HEAD
+
                     <x-jet-nav-link href="{{ route('appointment', ['id' => Auth::user()->dealership_id]) }}"
                         :active="request()->routeIs('appointment')">
                         {{ __('Appointment  ') }}
-=======
+                    </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('Modells.index')}}" :active="request()->routeIs('Brands')">
+                    <x-jet-nav-link href="{{ route('Modells.index') }}" :active="request()->routeIs('Brands')">
                         {{ __('Brands  ') }}
->>>>>>> d7cc5dd440cca82d89f2ef44669893cb05d3933d
+
                     </x-jet-nav-link>
                     {{-- <x-jet-nav-link href="{{ route('appointment',['id' => Auth::user()->dealership_id]) }}" :active="request()->routeIs('appointment')">
                         {{ __('Appointment  ') }}
@@ -128,8 +128,7 @@
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
-                                        src="{{ Auth::user()->profile_photo_url }}"
-                                        alt="{{ Auth::user()->name }}" />
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">

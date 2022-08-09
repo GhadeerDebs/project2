@@ -137,24 +137,24 @@
                             @livewire('make-makeyears-model-dropdown', ['id' => $id]);
                             {{-- <livewire:make-makeyears-model-dropdown/> --}}
                         </div>
+                        <br>
                         <div>
                             @if (count($ads->pictures) > 0)
                                 <p>Images:</p>
-                                @foreach ($images as $img)
-                                    @if ($img->adv_id == $ads->id)
-                                        <a href="{{ route('deleteimage', $img->id) }}"><i class="fas fa-trash "></i>
-                                            {{-- <form action="{{ route('deleteimage', $img->id) }}" method="POST">
-                                            <button class="btn text-danger">X</button>
-                                            @csrf
-                                            @method('delete')
-                                        </form> --}}
-
-
-                                            <img src="{{ URL::asset($img->advertisement_photo_path) }}"
-                                                class="img-responsive" style="max-height: 100px; max-width: 100px;"
-                                                alt="" srcset="">
-                                    @endif
-                                @endforeach
+                                <div class="row">
+                                    @foreach ($images as $img)
+                                        @if ($img->adv_id == $ads->id)
+                                            <br>
+                                            <div class="col md-6 mb-3">
+                                                <a href="{{ route('deleteimage', $img->id) }}"><i
+                                                        class="fas fa-trash "></i>
+                                                    <img src="{{ URL::asset($img->advertisement_photo_path) }}"
+                                                        class="img-responsive" style="max-height: 100px; max-width: 100px;"
+                                                        alt="" srcset="">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
                             @endif
                         </div>
 
@@ -166,6 +166,7 @@
 
     </div>
     </div>
+    <br> <br>
     <button class="btn btn-primary" type="submit">Submit </button>
     </form>
 

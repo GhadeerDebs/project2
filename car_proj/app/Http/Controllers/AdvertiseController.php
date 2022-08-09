@@ -57,19 +57,19 @@ class AdvertiseController extends Controller
                 //'advertisement_photo_path' => 'required|image'
             ]);
 
-        $ads = ad::create([
-            'type'            => $request->type,
-            'engine_capacity' => $request->engine_capacity,
-            'engine_power'    => $request->engine_power,
-            'drivetrain'      => $request->drivetrain,
-            'weight'          => $request->weight,
-            'gearbox'         => $request->gearbox,
-            'color'           => $request->color,
-            'dealership_id'   =>$dealerID,
-            'model_id'        => $request->model_id
+            $ads = ad::create([
+                'type'            => $request->type,
+                'engine_capacity' => $request->engine_capacity,
+                'engine_power'    => $request->engine_power,
+                'drivetrain'      => $request->drivetrain,
+                'weight'          => $request->weight,
+                'gearbox'         => $request->gearbox,
+                'color'           => $request->color,
+                'dealership_id'   => $dealerID,
+                'model_id'        => $request->model_id
 
 
-        ]);
+            ]);
         }
         if ($type == 'admin') {
             $this->validate($request, [
@@ -85,19 +85,19 @@ class AdvertiseController extends Controller
                 //'advertisement_photo_path' => 'required|image'
             ]);
 
-        $ads = ad::create([
-            'type'            => $request->type,
-            'engine_capacity' => $request->engine_capacity,
-            'engine_power'    => $request->engine_power,
-            'drivetrain'      => $request->drivetrain,
-            'weight'          => $request->weight,
-            'gearbox'         => $request->gearbox,
-            'color'           => $request->color,
-            'dealership_id'   => $request->dealership_id,
-            'model_id'        => $request->model_id
+            $ads = ad::create([
+                'type'            => $request->type,
+                'engine_capacity' => $request->engine_capacity,
+                'engine_power'    => $request->engine_power,
+                'drivetrain'      => $request->drivetrain,
+                'weight'          => $request->weight,
+                'gearbox'         => $request->gearbox,
+                'color'           => $request->color,
+                'dealership_id'   => $request->dealership_id,
+                'model_id'        => $request->model_id
 
 
-        ]);
+            ]);
         }
 
 
@@ -154,31 +154,32 @@ class AdvertiseController extends Controller
         $dealerID = $user->dealership_id;
         $type = $user->type;
         if ($type == 'employee') {
-             $this->validate($request, [
-            'type'            => 'required',
-            'engine_capacity' => 'required',
-            'engine_power'    => 'required',
-            'drivetrain'      => 'required',
-            'weight'          => 'required',
-            'gearbox'         => 'required',
-            'color'           => 'required',
-            'model_id'        => 'required',
-        ]);
-        $ads->dealership_id = $dealerID;}
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required',
+                'model_id'        => 'required',
+            ]);
+            $ads->dealership_id = $dealerID;
+        }
         if ($type == 'admin') {
-             $this->validate($request, [
-            'type'            => 'required',
-            'engine_capacity' => 'required',
-            'engine_power'    => 'required',
-            'drivetrain'      => 'required',
-            'weight'          => 'required',
-            'gearbox'         => 'required',
-            'color'           => 'required',
-            'dealership_id'   => 'required',
-            'model_id'        => 'required',
-        ]);
-        $ads->dealership_id =$request->dealership_id;
-    }
+            $this->validate($request, [
+                'type'            => 'required',
+                'engine_capacity' => 'required',
+                'engine_power'    => 'required',
+                'drivetrain'      => 'required',
+                'weight'          => 'required',
+                'gearbox'         => 'required',
+                'color'           => 'required',
+                'dealership_id'   => 'required',
+                'model_id'        => 'required',
+            ]);
+            $ads->dealership_id = $request->dealership_id;
+        }
 
 
         $ads->type             = $request->type;
@@ -191,26 +192,26 @@ class AdvertiseController extends Controller
 
         $ads->equipment       = $request->equipment;
         $ads->entertainment_equipment = $request->entertainment_equipment;
-            $ads->model_id        = $request->model_id;
+        $ads->model_id        = $request->model_id;
 
-            if ($request->hasFile("advertisement_photo_path")) {
-                foreach ($request->file('advertisement_photo_path') as $image) {
-                    $upload_image_name = time() . $image->getClientOriginalName();
-                    $image->move('adss', $upload_image_name);
-                    $name = $upload_image_name;
-                    $image = Picture::create(
-                        [
-                            'adv_id' => $ads->id,
-                            'advertisement_photo_path' => 'adss/' . $name
+        if ($request->hasFile("advertisement_photo_path")) {
+            foreach ($request->file('advertisement_photo_path') as $image) {
+                $upload_image_name = time() . $image->getClientOriginalName();
+                $image->move('adss', $upload_image_name);
+                $name = $upload_image_name;
+                $image = Picture::create(
+                    [
+                        'adv_id' => $ads->id,
+                        'advertisement_photo_path' => 'adss/' . $name
 
-                        ]
-                    );
-                }
+                    ]
+                );
             }
-            $ads->save();
-
-            return redirect('ads');
         }
+        $ads->save();
+
+        return redirect('ads');
+    }
 
     public function deleteimage($id)
     {
@@ -241,58 +242,3 @@ class AdvertiseController extends Controller
         return back();
     }
 }
-
-
-
-    // public function destroy($id)
-    // {
-    //     //
-    //     $ads = ad::where('id', $id)->first();
-    //     if ($ads === null) {
-    //         return redirect()->back();
-    //     }
-    //     $ads->delete();
-    //     return redirect()->back();
-    // }
-
-    // {{-- $ads=ad::findOrFail($id);
-    //
-    //        $ad->update([
-    //            $ads->type             = $request->type;
-    // $ads->engine_capacity = $request->engine_capacity;
-    // $ads->engine_power    = $request->engine_power;
-    // $ads->drivetrain      = $request->drivetrain;
-    // $ads->weight          = $request->weight;
-    // $ads->gearbox         = $request->gearbox;
-    // $ads->color          = $request->color;
-    // $ads->dealership_id   = $request->dealership_id;
-    // $ads->model_id        = $request->model_id;
-    //        ]);
-
-    //        if($request->hasFile("pictures")){
-    //            $files=$request->file("pictures");
-    //            foreach($files as $file){
-    //                $imageName=time().'_'.$file->getClientOriginalName();
-    //                $request["adv_id"]=$id;
-    //                $request["advertisement_photo_path"]=$imageName;
-    //                $file->move(\public_path("adss"),$imageName);
-    //                Picture::create($request->all()); --}}
-
-
-
-
-
-
-    // public function destroy($id)
-    // {
-    //      $ads=Advertisement::findOrFail($id);
-
-    //
-    //      $images=Picture::where("adv_id",$ads->id)->get();
-    //      foreach($images as $image){
-    //      if (File::exists("adss/".$image->image)) {
-    //         File::delete("images/".$image->image);
-    //     }
-    //      }
-    //      $adss->delete();
-    //      return back();

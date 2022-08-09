@@ -19,17 +19,12 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $item->name }}</td>
                     <td>
-                        <a href="{{ route('Models.edit_make', $item->id) }}"><i class="fas fa-edit"></i></a>
-                        <a href="{{ route('Models.relative_years', $item->id) }}"><i
-                            class="fas fa-eye "></i></a>&nbsp;&nbsp;
-                        {{-- <form action="{{ route('dealership.destroy', $item->id) }}"
-                            onsubmit="return confirm('Are you sure?');" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"><i class="fas fa-trash"></i></button>
-                        </form> --}}
-                        <a href="{{ route('Models.destroy_make', $item->id) }}"><i
-                                class="fas fa-trash "></i></a>&nbsp;&nbsp;
+                        <a href="{{ route('Models.edit_make', $item->id) }}"><i class=" fas fa-edit"
+                                style="color:rgb(149, 196, 32)"></i></a>
+                        <a href="{{ route('Models.relative_years', $item->id) }}"><i class="fas fa-eye "
+                                style="color:rgb(47, 136, 252)"></i></a>&nbsp;&nbsp;
+                        <a href="{{ route('Models.destroy_make', $item->id) }}"><i class="fa fa-trash"
+                                style="color:rgb(232, 27, 0)"></i></a>&nbsp;&nbsp;
 
                     </td>
 
