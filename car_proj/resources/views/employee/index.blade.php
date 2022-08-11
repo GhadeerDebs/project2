@@ -7,16 +7,18 @@
             <div class="col">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
-                        <h1 class="display-4">All Employees</h1>
+
+                        <h1 class="display-4">{{ $who }}</h1>
+
                     </div>
                 </div>
                 <a href="{{ route('Employee.create') }} ">
                     <button type="button" class="btn btn-success">Create Employee</button></a> &nbsp; &nbsp; &nbsp;
 
-                    @if(Auth::user()->type=='admin')
-                <a href="{{ route('Admin.create') }} ">
-                    <button type="button" class="btn btn-success">Create Admin</button></a> &nbsp; &nbsp; &nbsp;
-                    @endif
+                @if (Auth::user()->type == 'admin')
+                    <a href="{{ route('Admin.create') }} ">
+                        <button type="button" class="btn btn-success">Create Admin</button></a> &nbsp; &nbsp; &nbsp;
+                @endif
             </div>
         </div>
     </div>
@@ -32,7 +34,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+
                             <th scope="col">user name</th>
                             <th scope="col">user email</th>
                             <th scope="col">Action</th>
@@ -41,24 +43,26 @@
                     <tbody>
                         @foreach ($users as $item)
                             <tr>
-                                <th scope="row">{{ $id++ }}</th>
+
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>
-                                    {{-- <form action="{{ route('Employee.destroy', $item->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                        </form>&nbsp;&nbsp; --}}
-
-                                            <form action="{{ route('Employee.destroy', $item->id) }}"
-                                                onsubmit="return confirm('Are you sure?');" method="POST">
-                                                @csrf
-                                                @method('GET')
-                                                <button class="btn btn-danger" type="submit">Delete</button>
-                                            </form> &nbsp;&nbsp;
-                                    <a href="{{ route('Employee.edit', $item->id) }}"><button
-                                            class="btn btn-success">Edit</button></a>&nbsp;&nbsp;
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <form action="{{ route('Employee.destroy', $item->id) }}"
+                                                    onsubmit="return confirm('Are you sure?');" method="POST">
+                                                    @csrf
+                                                    @method('GET') <a href="{{ route('Employee.destroy', $item->id) }}">
+                                                        <i class="fas fa-trash" style="color:rgb(232, 27, 0)"></i></a>
+                                                </form>
+                                            </div>
+                                            <div class="col-6 col-md-4">
+                                                <a href="{{ route('Employee.edit', $item->id) }}"> <i class="fas fa-edit"
+                                                        style="color:rgb(149, 196, 32)"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

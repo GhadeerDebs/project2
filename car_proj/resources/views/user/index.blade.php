@@ -25,7 +25,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+
                                 <th scope="col">user name</th>
                                 <th scope="col">user email</th>
                                 <th scope="col">Action</th>
@@ -34,7 +34,7 @@
                         <tbody>
                             @foreach ($users as $item)
                                 <tr>
-                                    <th scope="row">{{ $id++ }}</th>
+
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>
@@ -42,10 +42,12 @@
                                             <form action="{{ route('user.destroy', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"><i class="fas fa-trash"></i></button>
+                                                <button type="submit"><i class="fas fa-trash "
+                                                        style="color:rgb(232, 27, 0)"></i></button> <a
+                                                    href="{{ route('user.edit', $item->id) }}"><i class="fas fa-edit"
+                                                        style="color:rgb(149, 196, 32)"></i></a>
                                             </form>
-                                            <a href="{{ route('user.edit', $item->id) }}"><i
-                                                    class="fas fa-edit"></i></a>
+
                                         </div>
 
                                     </td>

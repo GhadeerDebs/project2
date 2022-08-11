@@ -4,7 +4,7 @@
 @section('content')
     @php
     $i = 0;
-    $make=$years->first();
+    $make = $years->first();
     @endphp
     <table class="table table-striped table-hover">
         <thead>
@@ -20,15 +20,16 @@
                     <td>{{ ++$i }}</td>
                     <td>{{ $item->year }}</td>
                     <td>
-                        <a href="{{ route('Models.edit_year', $item->id) }}"><i class="fas fa-edit"></i></a>
-                        <a href="{{ route('Models.relative_models', $item->id) }}"><i
-                            class="fas fa-eye "></i></a>&nbsp;&nbsp;
-                        <form action="{{ route('Models.destroy_year', $item->id) }}"
-                            onsubmit="return " method="POST">
-                            @csrf
-                            @method('GET')
-                            <button type="submit"><i class="fas fa-trash"></i></button>
-                        </form>
+
+
+                        <a href="{{ route('Models.edit_year', $item->id) }}"><i class="fas fa-edit"
+                                style="color:rgb(149, 196, 32)"></i></a>
+                        <a href="{{ route('Models.relative_models', $item->id) }}"><i class="fas fa-eye "
+                                style="color:rgb(47, 136, 252)"></i></a>
+
+                        <a href="{{ route('Models.destroy_year', $item->id) }}"><i class="fas fa-trash"
+                                style="color:rgb(232, 27, 0)"></i></a>
+
                         {{-- <a href="{{ route('Models.destroy_year', $item->id) }}"><i
                                 class="fas fa-trash "></i></a>&nbsp;&nbsp; --}}
 
@@ -39,5 +40,5 @@
 
         </tbody>
     </table>
-    <button><a href="{{ route('Models.create_year',['make'=>$make]) }}">Add Year</a></button>
+    <button><a href="{{ route('Models.create_year', ['make' => $make]) }}">Add Year</a></button>
 @stop

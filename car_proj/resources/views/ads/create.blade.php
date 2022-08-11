@@ -62,14 +62,17 @@
                                 <input type="form-control" class="form-control" name="engine_power">
                             </div>
 
+
                             <div class="col">
                                 <label for="exampleFormControlInput1">Color of car</label>
                                 <input type="form-control" class="form-control" name="color">
                             </div>
+
                             <div class="col">
                                 <label for="exampleFormControlInput1">weight</label>
                                 <input type="form-control" class="form-control" name="weight">
                             </div>
+
                         </div>
 
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -113,7 +116,6 @@
                                 </div>
                             @endif
 
-
                             @if (Auth::user()->type == 'admin')
 
                                 <div class="col">
@@ -151,6 +153,7 @@
 
         <button class="btn btn-primary" type="submit">Add </button>
         </form>
+
 
     </div>
     </div>

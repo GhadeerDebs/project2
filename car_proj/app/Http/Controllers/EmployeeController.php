@@ -23,19 +23,21 @@ class EmployeeController extends Controller
         $user = Auth::user();
         $dealerID = $user->dealership_id;
         $type = $user->type;
+        $who = "All Employees";
         if ($type == 'employee') {
             $users = User::orderby('created_at', 'DESC')->where('dealership_id', $dealerID)->get();
         } else {
 
             $users = User::where('type', 'employee')->get();
         }
-        return view('employee.index')->with('users', $users);
+        return view('employee.index')->with('users', $users)->with('who', $who);
     }
     public function index_a()
     {
         //
         $users = User::where('type', 'admin')->get();
-        return view('employee.index')->with('users', $users);
+        $who = "All Admins";
+        return view('employee.index')->with('users', $users)->with('who', $who);
     }
     /**
      * Show the form for creating a new resource.
