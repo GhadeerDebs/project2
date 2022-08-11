@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Advertisement;
 use App\Models\Appoinment;
+use Carbon\Carbon;
 
 class dealership extends Model
 {
@@ -39,4 +40,5 @@ class dealership extends Model
     {
         return $this->belongsToMany(Hours::class, 'dealership_hour', 'dealership_id', 'hour_id')->where('status', '=', 'false')->get();
     }
+
 }

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\dealership;
 use App\Models\moodel;
 use App\Models\Picture;
-use App\Models\Equipment;
-use App\Models\EN_Equipment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 

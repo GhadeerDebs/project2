@@ -28,16 +28,19 @@ class HoursController extends Controller{
 
         $data=collect();
         foreach($hours as $h){
-            $timestamp = strtotime($h->startTime ) + 60*60;
-            $start_time = Carbon::parse($h->startTime)->format(' g:i a');
-        $time = date('g:i a', $timestamp);
-            $data->push([
-                'id' => $h->id,
-                'startTime' =>$start_time,
-                'endTime' => $time ,
-                'status' => $h->status,
-
-            ]);
+            $start = Carbon::parse($h->startTime)->format("H:i:s");
+            $cuurent=Carbon::now()->setTimezone("GMT+3")->format("H:i:s");
+            if( Carbon::parse($start)->gt($cuurent) ){
+                $timestamp = strtotime($h->startTime ) + 60*60;
+                $start_time = Carbon::parse($h->startTime)->format(' g:i a');
+                $time = date('g:i a', $timestamp);
+                $data->push([
+                    'id' => $h->id,
+                    'startTime' =>$start_time,
+                    'endTime' => $time ,
+                    'status' => $h->status,
+                ]);
+            }
         }
         return response()->json([
             'data '=>$data
@@ -66,7 +69,7 @@ class HoursController extends Controller{
             return response()->json($validator->errors(),400);
         }
         $hour=Hours::find($request->hour_id);
-        $hour->status=true;
+        $hour->status='true';
         $hour->save();
         $timestamp = strtotime($hour->startTime ) + 60*60;
         $time = date('H:i:s', $timestamp);

@@ -41,6 +41,7 @@ class FavoriteController extends Controller
     public function userFavoriteAds($user_id){
         $ads=Advertisement::join('favorite','favorite.adv_id','=','advertisement.id')
                         ->join('users','users.id','=','favorite.user_id')
+                        ->where('favorite.user_id',$user_id)
                         ->get(['advertisement.*']);
         $data=collect();
         foreach($ads as $a){

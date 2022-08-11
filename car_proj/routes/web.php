@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\HoursController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Statecitydropdown;
@@ -8,6 +9,8 @@ use App\Models\make;
 use App\Models\make_years;
 use App\Models\moodel;
 use App\Models\dealership;
+use App\Http\Controllers\SendEmailController;
+
 use League\CommonMark\Node\Query\OrExpr;
 
 /*
@@ -120,7 +123,6 @@ Route::middleware([
     Route::get('employee/destroy/{user}', 'App\Http\Controllers\EmployeeController@destroy')->name('Employee.destroy');
     Route::get('employee/edit/{user}', 'App\Http\Controllers\EmployeeController@edit')->name('Employee.edit');
     Route::put('employee/update/{user}', 'App\Http\Controllers\PostController@update')->name('Employee.update');
-
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });
 
@@ -129,11 +131,17 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'isAdmin',
+    'isEmployee',
 ])->group(function () {
 
     Route::get('appointment/{id}', 'App\Http\Controllers\HoursController@index')->name('appointment');
-    Route::get('appointment/book/{id}', 'App\Http\Controllers\HoursController@book')->name('appointment.book');
+    Route::get('appointment/create', 'App\Http\Controllers\HoursController@create')->name('appointment.create');
+    Route::post('appointment/store', 'App\Http\Controllers\HoursController@store')->name('appointment.store');
+    Route::get('appointment/destroy/{id}', 'App\Http\Controllers\HoursController@destroy')->name('appointment.destroy');
+    Route::get('appointment/edit/{id}', 'App\Http\Controllers\HoursController@edit')->name('appointment.edit');
+    Route::put('appointment/update/{id}', 'App\Http\Controllers\HoursController@update')->name('appointment.update');
+    //Route::get('appointment/book/{id}', 'App\Http\Controllers\HoursController@book')->name('appointment.book');
+    Route::post('send-email', [SendEmailController::class, 'index']);
 });
 
 
@@ -204,3 +212,4 @@ Route::middleware([
 
 
 Route::get('/dd/{id}', 'App\Http\Livewire\MakeMakeyearsModelDropdown');
+

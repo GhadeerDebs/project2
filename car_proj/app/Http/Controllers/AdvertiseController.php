@@ -8,6 +8,8 @@ use App\Models\dealership;
 use App\Models\moodel;
 use App\Models\Picture;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 use Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,8 +38,6 @@ class AdvertiseController extends Controller
         $models = moodel::all();
         return view('ads.create')->with('dealerships', $dealerships)->with('models', $models);
     }
-
-
     public function store(Request $request)
     {
 
@@ -57,19 +57,17 @@ class AdvertiseController extends Controller
                 //'advertisement_photo_path' => 'required|image'
             ]);
 
-        $ads = ad::create([
-            'type'            => $request->type,
-            'engine_capacity' => $request->engine_capacity,
-            'engine_power'    => $request->engine_power,
-            'drivetrain'      => $request->drivetrain,
-            'weight'          => $request->weight,
-            'gearbox'         => $request->gearbox,
-            'color'           => $request->color,
-            'dealership_id'   =>$dealerID,
-            'model_id'        => $request->model_id
-
-
-        ]);
+            $ads = ad::create([
+                'type'            => $request->type,
+                'engine_capacity' => $request->engine_capacity,
+                'engine_power'    => $request->engine_power,
+                'drivetrain'      => $request->drivetrain,
+                'weight'          => $request->weight,
+                'gearbox'         => $request->gearbox,
+                'color'           => $request->color,
+                'dealership_id'   => $dealerID,
+                'model_id'        => $request->model_id
+            ]);
         }
         if ($type == 'admin') {
             $this->validate($request, [
@@ -85,24 +83,23 @@ class AdvertiseController extends Controller
                 //'advertisement_photo_path' => 'required|image'
             ]);
 
-        $ads = ad::create([
-            'type'            => $request->type,
-            'engine_capacity' => $request->engine_capacity,
-            'engine_power'    => $request->engine_power,
-            'drivetrain'      => $request->drivetrain,
-            'weight'          => $request->weight,
-            'gearbox'         => $request->gearbox,
-            'color'           => $request->color,
-            'dealership_id'   => $request->dealership_id,
-            'model_id'        => $request->model_id
+            $ads = ad::create([
+                'type'            => $request->type,
+                'engine_capacity' => $request->engine_capacity,
+                'engine_power'    => $request->engine_power,
+                'drivetrain'      => $request->drivetrain,
+                'weight'          => $request->weight,
+                'gearbox'         => $request->gearbox,
+                'color'           => $request->color,
+                'dealership_id'   => $request->dealership_id,
+                'model_id'        => $request->model_id
 
-
-        ]);
+            ]);
         }
-
 
         $gallery = $request->file('advertisement_photo_path');
         //   dd($gallery);
+        if(isset($gallery)){
         foreach ($request->file('advertisement_photo_path') as $image) {
             $upload_image_name = time() . $image->getClientOriginalName();
             $image->move('adss', $upload_image_name);
@@ -115,8 +112,13 @@ class AdvertiseController extends Controller
                 ]
             );
         }
+    }
         return redirect()->back();
     }
+
+
+
+
 
     public function show(ad $ads)
     {
@@ -136,18 +138,8 @@ class AdvertiseController extends Controller
         return view('ads.edit')->with('ads', $ads)->with('dealerships', $dealership)->with('images', $images)->with('models', $models);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\advertise  $advertise
-     * @return \Illuminate\Http\Response
-     */
     public function update(ad $ads, Request $request)
     {
-
-        //
-
 
         $ads = ad::find($ads->id);
         $user = Auth::user();
