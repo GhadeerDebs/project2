@@ -24,6 +24,7 @@ class AdvetiseController extends Controller
             $year=$a->year();
             $make=$a->make();
             $dealer=$a->dealership()->get('name');
+            $dealer=$a->dealership()->get('phone');
             $data->push([
                 'id '=> $a->id,
                 'type'=>$a->type,

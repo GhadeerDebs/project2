@@ -15,8 +15,8 @@ class CreateDealershipHourTable extends Migration
     {
         Schema::create('dealership_hour', function (Blueprint $table) {
             $table->id();
-            $table->integer('dealership_id')->unsigned();
-            $table->integer('hour_id')->unsigned();
+            $table->unsignedBigInteger('dealership_id')->unsigned();
+            $table->unsignedBigInteger('hour_id')->unsigned();
             $table->timestamps();
         });
     }

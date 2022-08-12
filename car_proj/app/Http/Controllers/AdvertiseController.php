@@ -66,7 +66,9 @@ class AdvertiseController extends Controller
                 'gearbox'         => $request->gearbox,
                 'color'           => $request->color,
                 'dealership_id'   => $dealerID,
-                'model_id'        => $request->model_id
+                'model_id'        => $request->model_id,
+                'equipment'       =>$request->equipment,
+                'entertainment_equipment' => $request->entertainment_equipment
             ]);
         }
         if ($type == 'admin') {
@@ -92,7 +94,9 @@ class AdvertiseController extends Controller
                 'gearbox'         => $request->gearbox,
                 'color'           => $request->color,
                 'dealership_id'   => $request->dealership_id,
-                'model_id'        => $request->model_id
+                'model_id'        => $request->model_id,
+                'equipment'       =>$request->equipment,
+                'entertainment_equipment' => $request->entertainment_equipment
 
             ]);
         }
