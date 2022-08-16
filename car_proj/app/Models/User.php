@@ -31,7 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'type'
+        'type',
+        'dealership_id'
     ];
 
     /**
@@ -74,10 +75,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $this->belongsToMany(Advertisement::class, 'favorite');
     }
-    // public function appoinments()
-    // {
-    //     return $this->hasMany(Appoinment::class);
-    // }
+    public function appoinments()
+    {
+        return $this->hasMany(Appoinment::class);
+    }
     public function favorites()
     {
         return $this->hasMany(Favorite::class,'user_id','id');

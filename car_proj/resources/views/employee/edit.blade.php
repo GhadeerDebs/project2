@@ -3,6 +3,22 @@
 
 @section('content')
     <div class="container" style="padding-top: 4%">
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+     @endif
+
+@if (session('status'))
+    <div class="classname alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
         <form method="POST" action="{{ route('Employee.update', $user->id) }}">
             @csrf
             @method('PUT')
@@ -38,4 +54,5 @@
             </div>
         </form>
     </div>
+
 @stop

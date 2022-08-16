@@ -24,7 +24,7 @@
         @if(Auth::user()->type=='admin')
         <div class="mt-4">
             <label for="phone" value="{{ __('dealership_id') }}">Dealership</label>
-            <select class="form-control" name="type">
+            <select class="form-control" name="dealership_id">
                 @foreach($dealerships as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
                 @endforeach

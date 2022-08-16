@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\NotifyMail;
-
+use App\Models\dealership_time;
 
 class HoursController extends Controller
 {
@@ -75,9 +75,10 @@ class HoursController extends Controller
             $dealership=dealership::find( Auth::user()->dealership_id);
             $contains = str_contains($dealership->workdays, date('w') );
             if($contains != null){
-            $hours=$dealership->hours();
+            $hours=$dealership->time()->get();
             $data=collect();
             foreach($hours as $h){
+                if($h->status=='false'){
                 $start = Carbon::parse($h->startTime)->format("H:i:s");
                    // $start= Carbon::createFromFormat('g:i a', $h->startTime);
                     $cuurent=Carbon::now()->setTimezone("GMT+3")->format("H:i:s");
@@ -85,7 +86,7 @@ class HoursController extends Controller
                     // echo "<br>";
                     if( Carbon::parse($start)->gt($cuurent) ){
                        // echo "OK_____";
-                        $timestamp = strtotime($h->startTime ) + 60*60;
+                        $timestamp = strtotime($h->startTime ) + ($dealership->duration)*60;
                         $start_time = Carbon::parse($h->startTime)->format(' g:i a');
                         $endtime = date('g:i a', $timestamp);
                         $data->push([
@@ -96,7 +97,8 @@ class HoursController extends Controller
                             'status' => $h->status,
                         ]);
                     }
-                }
+                }}
+             //   dd($hours);
 
             return view('appointment.edit')->with('appointment',$app)->with('hours',$data);
         }else{
@@ -108,32 +110,39 @@ class HoursController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $user1=User::where('id',$request->user)->first();
-        $app=Appoinment::where('id',$id)->first();
+        $app=Appoinment::find($id);
         $oldstart=Carbon::parse($app->start_time)->format(' H:i:s'); //19
         $this->validate($request,[
             'start_time' => 'required',
             'end_time' => 'required',
         ]);
+
+        //save new appointment time
         $start_time = Carbon::parse($request->start_time)->format(' H:i:s');
         $end_time = Carbon::parse($request->end_time)->format(' H:i:s');
         $app->start_time=$start_time;
         $app->end_time=$end_time;
         $app->save();
-        $hour=Hours::where('id',$request->hour_id)->first();
+
+        //book new hour
+
+        $hour=dealership_time::whereTime('startTime', $start_time)->first();
+        //dd($hour);
         $hour->status='true';
+
         $hour->save();
-        $hourid= DB::table('dealership')
-                ->join('dealership_hour', 'dealership.id', '=', 'dealership_hour.dealership_id')
-                ->join('hours', 'dealership_hour.hour_id', '=', 'hours.id')
-                ->where('hours.startTime',$oldstart)
-                ->select('hours.id')->get();
-                 $oldhour=Hours::find($hourid->first()->id);
-                 $oldhour->status='false';
+        //dd($hour);
+
+        $hour23=dealership_time::whereTime('startTime',$oldstart)->first();
+               //  $oldhour=Hours::find($hourid->first()->id);
+                 $hour23->status='false';
               //    echo $hourid
-                $oldhour->save();
+                $hour23->save();
                 //email
                 $uid=$user1->id;
+
                 Mail::to($user1->email)->send(new NotifyMail($uid));
 
                 if (Mail::failures()) {
@@ -141,6 +150,7 @@ class HoursController extends Controller
                 }else{
                      return 'Great! Successfully send in your mail';
                    }
+
     }
 
     public function destroy($id)

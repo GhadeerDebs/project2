@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
-class AddInfoToDealershipTable extends Migration
+class AddDurationToDealershipTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +15,8 @@ class AddInfoToDealershipTable extends Migration
     public function up()
     {
         Schema::table('dealership', function (Blueprint $table) {
-            //
-            $table->time('startTime');
-            $table->time('endTime');
-            $table->longText('workdays');
+             $table->integer('duration')->nullable()->default(15);
+
         });
     }
 
@@ -29,9 +28,7 @@ class AddInfoToDealershipTable extends Migration
     public function down()
     {
         Schema::table('dealership', function (Blueprint $table) {
-            $table->dropColumn('startTime');
-            $table->dropColumn('endTime');
-            $table->dropColumn('workdays');
+             $table->dropColumn('duration');
         });
     }
 }

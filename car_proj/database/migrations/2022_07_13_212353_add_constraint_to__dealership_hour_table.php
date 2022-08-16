@@ -27,7 +27,8 @@ class AddConstraintToDealershipHourTable extends Migration
     public function down()
     {
         Schema::table('dealership_hour', function (Blueprint $table) {
-            //
+                       $table->dropForeign('hour_id');
+
         });
     }
 }

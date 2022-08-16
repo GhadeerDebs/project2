@@ -49,11 +49,12 @@ class CarModelController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'make_name' => 'required',
-            'year' => 'required',
-            'model_name' => 'required',
+        $request->validate( [
+            'make_name'=>['required','string','unique:make,name'],
+            'year'=>['required','numeric','gt:1884','digits:4'],
+            'model_name'=>['required','string','unique:model,name'],
         ]);
+
         $make = make::create([
             'name' => $request->make_name,
         ]);
@@ -63,35 +64,37 @@ class CarModelController extends Controller
         ]);
         $model = moodel::create([
             'name' => $request->model_name,
-            'make_years' => $make_years->id,
+            'make_years_id' => $make_years->id,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('status', ' created successfully!');
     }
     public function store_year(Request $request)
     {
-        $this->validate($request, [
-            'year' => 'required',
-            'make_id' => 'required',
+        $request->validate( [
+            'year'=>['required','numeric','gt:1884','digits:4'],
+            'make_id'=>'required',
         ]);
+
         $make_years = make_years::create([
             'year' => $request->year,
             'make_id' => $request->make_id,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('status', ' created successfully!');
     }
 
     public function store_model(Request $request)
     {
-        $this->validate($request, [
-            'model_name' => 'required',
-            'year_id' => 'required',
-            'make_id' => 'required',
+        $request->validate( [
+            'model_name'=>['required','string','unique:model,name'],
+            'year_id'=>'required',
+            'make_id'=>'required',
         ]);
+
         $model = moodel::create([
             'name' => $request->model_name,
             'make_years_id' => $request->year_id,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('status', ' created successfully!');
     }
 
     public function edit_make($id)
@@ -112,38 +115,53 @@ class CarModelController extends Controller
 
     public function update_make(Request $request, make $make)
     {
-
-        $this->validate($request, [
-            'make_name' => 'required',
-        ]);
         $make = make::find($make->id);
+
+        if($make->name==$request->make_name){
+            $request->validate( [
+                'make_name' =>['required','string'],
+            ]);
+        }else{
+            $request->validate( [
+                'make_name' =>['required','string','unique:make,name'],
+            ]);
+        }
+
+
         $make->name = $request->make_name;
         $make->save();
 
-        return redirect()->route('Modells.index');
+        return redirect()->route('Modells.index')->with('status', ' updated successfully!');
     }
 
     public function update_year(Request $request, make_years $year)
     {
-        $year = make_years::find($year->id);
-        $this->validate($request, [
-            'year' => 'required',
+        $year=make_years::find($year->id);
+        $request->validate( [
+            'year' =>['required','numeric','gt:1884','digits:4'],
         ]);
+
         $year->year = $request->year;
         $year->save();
 
-        return redirect()->route('Models.relative_years', ['makeid' => $year->make_id]);
+        return redirect()->route('Models.relative_years',['makeid'=>$year->make_id])->with('status', ' updated successfully!');
     }
 
     public function update_model(Request $request, moodel $model)
-    {
-        $model = moodel::find($model->id);
-        $this->validate($request, [
-            'model_name' => 'required',
-        ]);
+    {        $model=moodel::find($model->id);
+        if($model->name==$request->model_name){
+            $request->validate( [
+                'model_name' =>['required','string'],
+            ]);
+        }else{
+            $request->validate( [
+                'model_name' =>['required','string','unique:model,name'],
+            ]);
+        }
+
         $model->name = $request->model_name;
         $model->save();
-        return redirect()->route('Models.relative_models', ['yearid' => $model->make_years_id]);
+        return redirect()->route('Models.relative_models',['yearid'=>$model->make_years_id])->with('status', ' updated successfully!');
     }
 
     public function destroy_make(make $make)

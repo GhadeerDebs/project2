@@ -5,48 +5,48 @@
 
     <div class="form-row">
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Type :</label>
+            <label for="exampleFormControlInput1" style="font:bold">Type :</label>
             <label for="exampleFormControlInput1">{{ $ads->type }}</label>
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Engine_capacity :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Engine_capacity :</label>
             <label for="exampleFormControlInput1">{{ $ads->engine_capacity }}</label>
 
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Engine_power :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Engine_power :</label>
             <label for="exampleFormControlInput1">{{ $ads->engine_power }}</label>
 
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Weight :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Weight :</label>
             <label for="exampleFormControlInput1">{{ $ads->weight }}</label>
 
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Drivetrain :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Drivetrain :</label>
             <label for="exampleFormControlInput1">{{ $ads->drivetrain }}</label>
 
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Gearbox :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Gearbox :</label>
             <label for="exampleFormControlInput1">{{ $ads->gearbox }}</label>
 
         </div>
         <br>
 
         <div class=" col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Color :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Color :</label>
             <label for="exampleFormControlInput1">{{ $ads->color }}</label>
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Model_id :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Model_id :</label>
             <label for="exampleFormControlInput1">{{ $ads->model_id }}</label>
 
         </div>
@@ -54,13 +54,13 @@
 
 
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Equipment :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Equipment :</label>
             <label for="exampleFormControlInput1">{{ $ads->equipment }}</label>
 
         </div>
         <br>
         <div class="col-md-6 mb-3">
-            <label for="exampleFormControlInput1">Entertatment equipment :</label>
+            <label for="exampleFormControlInput1"  style="font:bold">Entertatment equipment :</label>
             <label for="exampleFormControlInput1">{{ $ads->entertainment_equipment }}</label>
 
         </div>

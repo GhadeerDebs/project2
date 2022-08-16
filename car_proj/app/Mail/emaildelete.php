@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NotifyMail extends Mailable
+class emaildelete extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class NotifyMail extends Mailable
     {
         $uid=$this->uid;
         $app=Appoinment::where('user_id',$uid)->first();
-        return $this->view('emails.demoMail')->with('appointment',$app);
+        return $this->view('emails.deletApppintment');
     }
 }

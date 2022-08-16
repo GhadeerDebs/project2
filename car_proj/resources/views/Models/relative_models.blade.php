@@ -4,7 +4,7 @@
 @section('content')
     @php
     $i = 0;
-    $year = $models->first();
+    $model = $models->first();
     @endphp
     <table class="table table-striped table-hover">
         <thead>
@@ -39,5 +39,6 @@
 
         </tbody>
     </table>
-    {{-- <button><a href="{{ route('Models.create_model',['year'=>$year]) }}">Add model</a></button> --}}
+    {{-- <p>{{$model->make_years_id}}</p> --}}
+    <button><a href="{{ route('Models.create_model',['year'=>$model->make_years_id]) }}">Add model</a></button>
 @stop

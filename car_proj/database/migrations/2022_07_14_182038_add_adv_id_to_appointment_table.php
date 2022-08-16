@@ -27,7 +27,9 @@ class AddAdvIdToAppointmentTable extends Migration
     public function down()
     {
         Schema::table('appoinement', function (Blueprint $table) {
-            //
+           $table->dropForeign('adv_id');
+
+
         });
     }
 }

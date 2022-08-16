@@ -2,9 +2,6 @@
 @section('title', ' Edit')
 
 @section('content')
-<form action="{{route('appointment.update',$appointment->id)}}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
     @php
     $i = 0;
     @endphp
@@ -19,31 +16,37 @@
         </thead>
         <tbody>
             @foreach ($hours as $item)
+
                 <tr>
                     <td>{{ ++$i }}</td>
                     <td>
-                        <input type="hidden" name="hour_id"  value="{{$item['id']}}">
-                        <input type="hidden" name="start_time"  value="{{$item['startTime']}}">
+
                         @php
                             echo $item['startTime'];
                         @endphp
                     </td>
                     <td>
-                        <input type="hidden" name="end_time"  value="{{$item['endTime']}}">
+
                         @php
                          echo $item['endTime'];
                         @endphp
                     </td>
                     <td>
-                        <input type="hidden" name="user"  value="{{$item['user']}}">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="submit">choose</button>
+
+                        <form action="{{ route('appointment.update',$appointment->id) }}"
+                            method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="hour_id"  value="{{$item['id']}}">
+                            <input type="hidden" name="start_time"  value="{{$item['startTime']}}">
+                            <input type="hidden" name="end_time"  value="{{$item['endTime']}}">
+                            <input type="hidden" name="user"  value="{{$item['user']}}">
+                            <button class="btn btn-primary" type="submit">choose </button>
+                    </form>
                     </td>
                 </tr>
             @endforeach
             {{-- @dd($hours) --}}
         </tbody>
     </table>
-  </form>
 @stop

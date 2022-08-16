@@ -28,9 +28,8 @@
                         @endphp
                     </td>
                     <td>@php
-                        $timestamp = strtotime($item->start_time) + 60 * 60;
-                        $time = date('g:i a', $timestamp);
-                        echo $time;
+                          $time_in_12_hour_fyormat = date('g:i a', strtotime($item->end_time));
+                            echo $time_in_12_hour_fyormat;
                     @endphp
                     </td>
                     <td>

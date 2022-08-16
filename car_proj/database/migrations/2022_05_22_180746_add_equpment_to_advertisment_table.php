@@ -14,8 +14,8 @@ class AddEqupmentToAdvertismentTable extends Migration
     public function up()
     {
         Schema::table('advertisement', function (Blueprint $table) {
-            $table->longText("equipment")->nullable();
-            $table->longText("entertainment_equipment")->nullable();
+           $table->longText("equipment")->nullable();
+           $table->longText("entertainment_equipment")->nullable();
         });
     }
 
@@ -27,7 +27,9 @@ class AddEqupmentToAdvertismentTable extends Migration
     public function down()
     {
         Schema::table('advertisement', function (Blueprint $table) {
-            //
+         $table->dropColumn("equipment");
+         $table->dropColumn("entertainment_equipment");
+
         });
     }
 }

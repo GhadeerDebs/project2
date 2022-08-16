@@ -179,7 +179,13 @@ class EmployeeController extends Controller
                 // 'type' => 'required'
 
             ]);
-            $user->dealership_id = Auth::user()->dealership_id;
+
+            $user->forceFill([
+                'name' =>  $request->name,
+                'email' => $request->email,
+                'dealership_id' => Auth::user()->dealership_id,
+                // 'phone'=> $request->phone,
+            ])->save();
         }
         if (Auth::user()->type == 'admin') {
 
@@ -190,20 +196,22 @@ class EmployeeController extends Controller
 
 
             ]);
+            $user->dealership_id = $request->dealership_id;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->forceFill([
+                'name' =>  $request->name,
+                'email' => $request->email,
+                'dealership_id' => $request->dealership_id,
+                // 'phone'=> $request->phone,
+            ])->save();
         }
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->dealership_id = $request->dealership_id;
+
         if ($request->has('password')) {
             $user->password = sha1($request->password);
             $user->save();
         }
-        $user->forceFill([
-            'name' =>  $request->name,
-            'email' => $request->email,
-            'dealership_id' => $request->dealership_id,
-            // 'phone'=> $request->phone,
-        ])->save();
+
 
         return redirect()->back();
     }
