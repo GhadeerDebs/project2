@@ -97,7 +97,7 @@ Route::middleware([
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
     Route::get('ads/delete/{id}', 'App\Http\Controllers\AdvertiseController@destroy')->name('ads.destroy');
 
-
+    Route::get('ads/search', 'App\Http\Controllers\AdvertiseController@search')->name('ads.search');
     // Route::get('dealership/destroy/{id}', 'App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
 
 
@@ -207,7 +207,7 @@ Route::middleware([
     Route::get('brands/destroy/{make}', 'App\Http\Controllers\CarModelController@destroy_make')->name('Models.destroy_make');
     Route::get('brands/destroy_year/{year}', 'App\Http\Controllers\CarModelController@destroy_year')->name('Models.destroy_year');
     Route::get('brands/destroy_model/{model}', 'App\Http\Controllers\CarModelController@destroy_model')->name('Models.destroy_model');
-
+    Route::get('brands/search', 'App\Http\Controllers\CarModelController@search')->name('Models.search');
 });
 
 

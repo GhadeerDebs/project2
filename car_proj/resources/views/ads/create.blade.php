@@ -8,7 +8,6 @@
     $gearboxArray = ['automatic', 'manual'];
     @endphp
     <div class="container">
-
         <div class="row">
             @if (count($errors) > 0)
                 <ul>
@@ -20,13 +19,11 @@
                 </ul>
             @endif
             <div class="col">
-
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
                         <h1 class="display-4">Create Advertise</h1>
                     </div>
                     <br>
-
                     <div class="row">
                         <div class="container">
                             <div class="col align-self-end">
@@ -40,7 +37,6 @@
             <div class="row">
                 <div class="col">
                     <form action="{{ route('ads.store') }}" method="POST" enctype="multipart/form-data">
-
                         {{ csrf_field() }}
                         @method('POST')
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
@@ -56,13 +52,14 @@
                                 <label for="exampleFormControlTextarea1">Engine_capacity</label>
                                 <input type="form-control" class="form-control" name="engine_capacity">
                             </div>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                             <div class="col">
                                 <label for="exampleFormControlInput1">Engine_power</label>
                                 <input type="form-control" class="form-control" name="engine_power">
                             </div>
-
-
                             <div class="col">
                                 <label for="exampleFormControlInput1">Color of car</label>
                                 <input type="form-control" class="form-control" name="color">
@@ -74,11 +71,10 @@
                             </div>
 
                         </div>
-
+                        <br>
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                             <div class="col">
                                 <label for="exampleFormControlInput1">Drivetrain</label>
-
                                 <select class="form-control" name="drivetrain">
                                     @foreach ($drivetrainArray as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -87,7 +83,6 @@
                             </div>
                             <div class="col">
                                 <label for="exampleFormControlInput1">Gearbox</label>
-
                                 <select class="form-control" name="gearbox">
                                     @foreach ($gearboxArray as $item)
                                         <option value="{{ $item }}">{{ $item }}</option>
@@ -102,8 +97,9 @@
                                 <label for="exampleFormControlInput1">Basic_equipment</label>
                                 <textarea class="form-control" name="equipment"></textarea>
                             </div>
-                        </div>
+                        </div><br>
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+<<<<<<< Updated upstream
                             @if (Auth::user()->type == 'user')
                                 <div class="col">
                                     <label for="exampleFormControlInput1">Dealership</label>
@@ -116,11 +112,15 @@
                                 </div>
                             @endif
 
+=======
+                            <div class="col">
+                                <label for="exampleFormControlTextarea1">Weight</label>
+                                <input type="form-control" class="form-control" name="weight">
+                            </div>
+>>>>>>> Stashed changes
                             @if (Auth::user()->type == 'admin')
-
                                 <div class="col">
                                     <label for="exampleFormControlInput1">Dealership</label>
-
                                     <select class="form-control" name="dealership_id">
                                         @foreach ($dealerships as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -128,6 +128,7 @@
                                     </select>
                                 </div>
                             @endif
+<<<<<<< Updated upstream
 
                             <div class="col">
                                 @livewire('make-makeyears-model-dropdown', ['id' => null])
@@ -140,19 +141,21 @@
                                     @endforeach
                                 </select>
                             </div>
+=======
+>>>>>>> Stashed changes
                             <div class="col">
                                 <br>
                                 <input type="file" name="advertisement_photo_path[]" id="exampleFile" type="file"
                                     accept="image/*" multiple>
                             </div>
                         </div>
-
                 </div>
             </div>
         </div>
-
-        <button class="btn btn-primary" type="submit">Add </button>
-        </form>
+    </div>
+    <br><br>
+    <button class="btn btn-primary" type="submit">Add </button>
+    </form>
 
 
     </div>

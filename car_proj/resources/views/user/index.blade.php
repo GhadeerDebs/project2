@@ -47,16 +47,14 @@
                                                     href="{{ route('user.edit', $item->id) }}"><i class="fas fa-edit"
                                                         style="color:rgb(149, 196, 32)"></i></a>
                                             </form>
-
                                         </div>
-
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
-                    </table>
+                    </table>{{ $users->links() }}
                 </div>
+
             </div>
         @else
             <div class="col">

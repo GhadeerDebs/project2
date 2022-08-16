@@ -41,8 +41,9 @@
                         @endphp
                         {{ csrf_field() }}
                         @method('POST')
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
+                        <br>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">type</label>
                                 <select class="form-control" name="type">
                                     @foreach ($typeArray as $item)
@@ -51,39 +52,38 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col">
                                 <label for="exampleFormControlTextarea1">engine_capacity</label>
                                 <input type="form-control" class="form-control" name="engine_capacity"
                                     value="{{ $ads->engine_capacity }}">
                             </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="col-md-3 mb-3">
+
+
+                            <div class="col">
                                 <label for="exampleFormControlInput1">engine_power</label>
                                 <input type="form-control" class="form-control" name="engine_power"
                                     value="{{ $ads->engine_power }}">
                             </div>
 
-                            <div class="col-md-3 mb-3">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">weight</label>
                                 <input type="form-control" class="form-control" name="weight" value="{{ $ads->weight }}">
 
                             </div>
-                            <div class="col-md-3 mb-3">
+                        </div>
+                        <br>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">Color</label>
                                 <input type="form-control" class="form-control" name="color" value="{{ $ads->color }}">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col">
                                 <label>Choose Images</label>
                                 <input type="file" name="advertisement_photo_path[]"id="exampleFile" type="file"
                                     accept="image/*" multiple>
                             </div>
-
-                        </div>
-
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">drivetrain</label>
 
                                 <select class="form-control" name="drivetrain">
@@ -94,7 +94,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">gearbox</label>
                                 <select class="form-control" name="gearbox">
                                     @foreach ($gearboxArray as $item)
@@ -105,20 +105,20 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
+                        <br>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">entertainment_equipment</label>
                                 <textarea class="form-control" name="entertainment_equipment">{{ $ads->entertainment_equipment }}</textarea>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col">
                                 <label for="exampleFormControlInput1">Basic_equipment</label>
                                 <textarea class="form-control" name="equipment">{{ $ads->equipment }}</textarea>
                             </div>
-                        </div>
-                        <div class="form-row">
+
+
                             @if (Auth::user()->type == 'admin')
-                                <div class="col-md-6 mb-3">
+                                <div class="col">
                                     <label for="exampleFormControlInput1">dealership</label>
 
                                     <select class="form-control" name="dealership_id">
@@ -130,15 +130,12 @@
                                     </select>
                                 </div>
                             @endif
-
-
-
                             {{-- <livewire:edit/> --}}
                             @livewire('make-makeyears-model-dropdown', ['id' => $id]);
                             {{-- <livewire:make-makeyears-model-dropdown/> --}}
                         </div>
                         <br>
-                        <div>
+                        <div class="col">
                             @if (count($ads->pictures) > 0)
                                 <p>Images:</p>
                                 <div class="row">

@@ -25,17 +25,17 @@ class EmployeeController extends Controller
         $type = $user->type;
         $who = "All Employees";
         if ($type == 'employee') {
-            $users = User::orderby('created_at', 'DESC')->where('dealership_id', $dealerID)->get();
+            $users = User::orderby('created_at', 'DESC')->where('dealership_id', $dealerID)->paginate(5);
         } else {
 
-            $users = User::where('type', 'employee')->get();
+            $users = User::where('type', 'employee')->paginate(5);
         }
         return view('employee.index')->with('users', $users)->with('who', $who);
     }
     public function index_a()
     {
         //
-        $users = User::where('type', 'admin')->get();
+        $users = User::where('type', 'admin')->paginate(5);
         $who = "All Admins";
         return view('employee.index')->with('users', $users)->with('who', $who);
     }

@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::where('type', 'user')->get();
+        $users = User::where('type', 'user')->paginate(5);
         return view('user.index')->with('users', $users);
     }
 

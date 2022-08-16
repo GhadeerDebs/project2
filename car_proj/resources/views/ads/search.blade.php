@@ -7,37 +7,14 @@
             <div class="col">
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
-                        <h1 class="display-4">All Advertisemints</h1>
-
+                        <h1 class="display-4">Result of search</h1>
                     </div>
-
                 </div>
-                <a href="{{ route('ads.create') }} ">
-                    <button type="button" class="btn btn-success">Create advertise</button></a> &nbsp; &nbsp; &nbsp;
-
-                </button></a>
 
             </div>
         </div>
         <hr>
         <br>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item">
-
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" type="get" action="{{ route('ads.search') }}">
-                    <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search type"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
         <br>
         @if ($ads->count() > 0)
             @php
@@ -94,8 +71,8 @@
                                                     onsubmit="return confirm('Are you sure?');" method="POST">
                                                     @csrf
                                                     @method('GET')
-                                                    <a href="{{ route('ads.destroy', $item->id) }}"> <i
-                                                            class="fas fa-trash" style="color:rgb(232, 27, 0)"></i></a>
+                                                    <a href="{{ route('ads.destroy', $item->id) }}"> <i class="fas fa-trash"
+                                                            style="color:rgb(232, 27, 0)"></i></a>
                                             </div>
 
                                             </form>
@@ -105,7 +82,7 @@
                             @endforeach
 
                         </tbody>
-                    </table> {{ $ads->links() }}
+                    </table>
                 </div>
 
             </div>

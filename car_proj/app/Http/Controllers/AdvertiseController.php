@@ -21,9 +21,9 @@ class AdvertiseController extends Controller
         $dealerID = $user->dealership_id;
         $type = $user->type;
         if ($type == 'employee') {
-            $ads = ad::orderby('created_at', 'DESC')->where('dealership_id', $dealerID)->get();
+            $ads = ad::orderby('created_at', 'DESC')->where('dealership_id', $dealerID)->paginate(4);
         } else {
-            $ads = ad::orderby('created_at', 'DESC')->get();
+            $ads = ad::orderby('created_at', 'DESC')->paginate(4);
         }
         $images = Picture::all();
         return view('ads.index')->with('ads', $ads)->with('images', $images);
@@ -236,5 +236,19 @@ class AdvertiseController extends Controller
         }
         $ads->delete();
         return back();
+    }
+    public function search()
+    {
+        $search_text = $_GET['query'];
+        $user = Auth::user();
+        $dealerID = $user->dealership_id;
+        $type = $user->type;
+        $images = Picture::all();
+        if ($type == 'employee') {
+            $ads = ad::where('dealership_id', $dealerID)->where('type', 'like', '%' . $search_text . '%')->get();
+        } else {
+            $ads = ad::where('type', 'like', '%' . $search_text . '%')->get();
+        }
+        return view('ads.search')->with('ads', $ads)->with('images', $images);
     }
 }

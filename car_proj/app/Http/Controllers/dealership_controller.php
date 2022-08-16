@@ -7,6 +7,7 @@ use App\Models\Hours;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
 class dealership_controller extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class dealership_controller extends Controller
     public function index()
     {
 
-        $dealerships = dealership::all();
+        $dealerships = dealership::paginate(2);
         return view('dealership.index', ['dealerships' => $dealerships]);
     }
 
@@ -45,7 +46,7 @@ class dealership_controller extends Controller
             'dealer_photo_path' => 'required|image',
             'startTime' => 'required',
             'endTime' => 'required',
-            'workdays' =>'required'
+            'workdays' => 'required'
         ]);
         $photo =  $request->file('dealer_photo_path');
         $newphoto = time() . $photo->getClientOriginalName();
@@ -55,25 +56,25 @@ class dealership_controller extends Controller
             'location' => $request->location,
             'phone' => $request->phone,
             'dealer_photo_path' => 'dealer/' . $newphoto,
-            'startTime' =>$request->startTime,
+            'startTime' => $request->startTime,
             'endTime' => $request->endTime,
-            'workdays' =>json_encode($days)
+            'workdays' => json_encode($days)
 
         ]);
-        $start=$request->startTime;
-        $end=$request->endTime;
+        $start = $request->startTime;
+        $end = $request->endTime;
 
-            $start_time = Carbon::parse($start)->format(' g:i a');
-            $end_time = Carbon::parse($end)->format(' g:i a');
-            $totalDuration =Carbon::parse($start_time)->diffInHours($end_time);
-            $num=explode(" ",$totalDuration);
-            $time = new Carbon($start_time);
-        for( $i=0;$i<$num[0];$i++){
-            $hours=Hours::create([
-                'startTime'=>$time
+        $start_time = Carbon::parse($start)->format(' g:i a');
+        $end_time = Carbon::parse($end)->format(' g:i a');
+        $totalDuration = Carbon::parse($start_time)->diffInHours($end_time);
+        $num = explode(" ", $totalDuration);
+        $time = new Carbon($start_time);
+        for ($i = 0; $i < $num[0]; $i++) {
+            $hours = Hours::create([
+                'startTime' => $time
             ]);
             $dealership->hour()->attach($hours);
-          //  $dealership->hours()->attach($hours->id);
+            //  $dealership->hours()->attach($hours->id);
             //$dealership->each->hours()->attach($hours);
             $time->addHour();
         }
@@ -93,7 +94,7 @@ class dealership_controller extends Controller
 
     public function edit(dealership $dealership)
     {
-        if((Auth::user()->type=='admin') || (Auth::user()->type=='employee' && Auth::user()->dealership_id==$dealership->id)){
+        if ((Auth::user()->type == 'admin') || (Auth::user()->type == 'employee' && Auth::user()->dealership_id == $dealership->id)) {
             if ($dealership === null) {
                 return redirect()->back();
             } else
@@ -109,7 +110,7 @@ class dealership_controller extends Controller
             'name' => 'required',
             'location' => 'required',
             'phone' => 'required',
-            'startTime' =>'required',
+            'startTime' => 'required',
             'endTime' => 'required',
             'workdays' => 'required',
         ]);
@@ -127,22 +128,22 @@ class dealership_controller extends Controller
         $dealership->workdays = $request->workdays;
 
         $dealership->save();
-        $hours=$dealership->hour()->delete();
+        $hours = $dealership->hour()->delete();
         // foreach($hours as $h){
         //         $h->destroy($h->id);
         // }
 
-        $start=$request->startTime;
-        $end=$request->endTime;
+        $start = $request->startTime;
+        $end = $request->endTime;
 
-            $start_time = Carbon::parse($start)->format(' g:i a');
-            $end_time = Carbon::parse($end)->format(' g:i a');
-            $totalDuration =Carbon::parse($start_time)->diffInHours($end_time);
-            $num=explode(" ",$totalDuration);
-            $time = new Carbon($start_time);
-        for( $i=0;$i<$num[0];$i++){
-            $hours=Hours::create([
-                'startTime'=>$time
+        $start_time = Carbon::parse($start)->format(' g:i a');
+        $end_time = Carbon::parse($end)->format(' g:i a');
+        $totalDuration = Carbon::parse($start_time)->diffInHours($end_time);
+        $num = explode(" ", $totalDuration);
+        $time = new Carbon($start_time);
+        for ($i = 0; $i < $num[0]; $i++) {
+            $hours = Hours::create([
+                'startTime' => $time
             ]);
             $dealership->hour()->attach($hours);
             $time->addHour();

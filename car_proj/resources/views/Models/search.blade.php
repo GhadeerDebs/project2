@@ -7,27 +7,11 @@
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
 
-                    <h1 class="display-4">Brands of cars</h1>
+                    <h1 class="display-4">Result of search</h1>
 
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0" type="get" action="{{ route('Models.search') }}">
-                        <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search Prand"
-                            aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
         </div>
     </div>
     @php
@@ -62,7 +46,7 @@
                 @endforeach
 
             </tbody>
-        </table>{{ $makes->links() }}
-        <button><a href="{{ route('Models.create') }}">Add</a></button>
+
+
     </div>
 @stop
