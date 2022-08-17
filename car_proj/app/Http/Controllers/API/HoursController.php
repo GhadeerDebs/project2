@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\dealership;
 use App\Models\Appoinment;
+use App\Models\dealership_time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -24,14 +25,15 @@ class HoursController extends Controller{
         $dealership=dealership::find( $request->dealerid);
         $contains = str_contains($dealership->workdays, date('w') );
         if($contains != null){
-        $hours=$dealership->hours();
+        $hours=$dealership->time()->get();
 
         $data=collect();
         foreach($hours as $h){
+            if($h->status='false'){
             $start = Carbon::parse($h->startTime)->format("H:i:s");
             $cuurent=Carbon::now()->setTimezone("GMT+3")->format("H:i:s");
             if( Carbon::parse($start)->gt($cuurent) ){
-                $timestamp = strtotime($h->startTime ) + 60*60;
+                $timestamp = strtotime($h->startTime ) + ($dealership->duration)*60;
                 $start_time = Carbon::parse($h->startTime)->format(' g:i a');
                 $time = date('g:i a', $timestamp);
                 $data->push([
@@ -41,6 +43,7 @@ class HoursController extends Controller{
                     'status' => $h->status,
                 ]);
             }
+        }
         }
         return response()->json([
             'data '=>$data
@@ -68,10 +71,10 @@ class HoursController extends Controller{
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }
-        $hour=Hours::find($request->hour_id);
+        $hour=dealership_time::find($request->hour_id);
         $hour->status='true';
         $hour->save();
-        $timestamp = strtotime($hour->startTime ) + 60*60;
+        $timestamp = strtotime($hour->startTime ) + ($hour->duration)*60;
         $time = date('H:i:s', $timestamp);
         $app=Appoinment::create([
             'start_time'=>$hour->startTime,

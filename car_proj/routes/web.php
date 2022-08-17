@@ -159,6 +159,7 @@ Route::middleware([
     Route::get('dealership/destroy/{id}', 'App\Http\Controllers\dealership_controller@destroy')->name('dealership.destroy');
     Route::get('dealership/edit/{dealership}', 'App\Http\Controllers\dealership_controller@edit')->name('dealership.edit');
     Route::put('dealership/update/{dealership}', 'App\Http\Controllers\dealership_controller@update')->name('dealership.update');
+    Route::get('dealership/show/{id}', 'App\Http\Controllers\dealership_controller@show')->name('dealership.show');
 
     // Route::resource('ads', 'App\Http\Controllers\AdvertiseController');
 });

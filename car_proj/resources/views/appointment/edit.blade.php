@@ -5,6 +5,14 @@
     @php
     $i = 0;
     @endphp
+    <div class="container" style="padding-top: 4%">
+        @if (session('status'))
+        <div class=" alert alert-success" id='box'>
+                {{ session('status') }}
+            </div>
+
+        </div>
+        @endif
     <table class="table table-striped table-hover">
         <thead>
             <tr>

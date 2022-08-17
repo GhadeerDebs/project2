@@ -2,6 +2,16 @@
 @section('title', 'Ads')
 
 @section('content')
+
+
+<div class="container" style="padding-top: 4%">
+@if (session('status'))
+<div class=" alert alert-success" id='box'>
+        {{ session('status') }}
+    </div>
+
+</div>
+@endif
     <div class="container">
         <div class="row">
             <div class="col">
@@ -112,7 +122,7 @@
         @else
             <div class="col">
                 <div class="alert alert-danger" role="alert">
-                    There is not posts
+                    There is no ads
                 </div>
             </div>
         @endif

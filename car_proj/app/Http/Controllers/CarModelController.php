@@ -70,6 +70,7 @@ class CarModelController extends Controller
     }
     public function store_year(Request $request)
     {
+
         $request->validate( [
             'year'=>['required','numeric','gt:1884','digits:4'],
             'make_id'=>'required',

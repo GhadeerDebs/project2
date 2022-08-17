@@ -5,20 +5,20 @@
     @php
     $typeArray = ['Sedan', 'Minivan', 'Jeep', 'MiniJeep', 'Coupe', 'SUV', 'Sports_sedan'];
     $drivetrainArray = ['frontWHeelDrive', 'rearwheelDrive'];
-    $gearboxArray = ['automatic', 'manual'];
+    $gearboxArray = ['automatic 4 speeds ','automatic 5 speeds ','automatic 6 speeds ','automatic 7 speeds ', 'manual'];
     @endphp
+    <div class="container" style="padding-top: 4%">
+        @if (session('status'))
+        <div class=" alert alert-success" id='box'>
+                {{ session('status') }}
+            </div>
+
+        </div>
+        @endif
     <div class="container">
 
         <div class="row">
-            @if (count($errors) > 0)
-                <ul>
-                    @foreach ($errors as $item)
-                        <li>
-                            {{ $item }}
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+
             <div class="col">
 
                 <div class="jumbotron jumbotron-fluid">
@@ -55,20 +55,32 @@
                             <div class="col">
                                 <label for="exampleFormControlTextarea1">Engine_capacity</label>
                                 <input type="form-control" class="form-control" name="engine_capacity">
+                                @if ($errors->has('engine_capacity'))
+                                <span style="color: red">{{ $errors->first('engine_capacity') }}</span>
+                             @endif
                             </div>
 
                             <div class="col">
                                 <label for="exampleFormControlInput1">Engine_power</label>
                                 <input type="form-control" class="form-control" name="engine_power">
+                                @if ($errors->has('engine_power'))
+                                      <span  style="color: red">{{ $errors->first('engine_power') }}</span>
+                                   @endif
                             </div>
 
                             <div class="col">
                                 <label for="exampleFormControlInput1">Color of car</label>
                                 <input type="form-control" class="form-control" name="color">
+                                @if ($errors->has('color'))
+                                <span  style="color: red">{{ $errors->first('color') }}</span>
+                          @endif
                             </div>
                             <div class="col">
                                 <label for="exampleFormControlInput1">weight</label>
                                 <input type="form-control" class="form-control" name="weight">
+                                @if ($errors->has('weight'))
+                                <span  style="color: red">{{ $errors->first('weight') }}</span>
+                          @endif
                             </div>
                         </div>
 

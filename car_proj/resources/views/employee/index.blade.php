@@ -2,6 +2,13 @@
 @section('title', 'users')
 
 @section('content')
+<div class="container" style="padding-top: 4%">
+    @if (session('status'))
+    <div class=" alert alert-success" id='box'>
+            {{ session('status') }}
+        </div>
+    @endif
+    </div>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -37,6 +44,8 @@
 
                             <th scope="col">user name</th>
                             <th scope="col">user email</th>
+                            <th scope="col">user phone</th>
+
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -46,6 +55,13 @@
 
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
+                                <td>{{ $item->phone }}</td>
+                                {{-- <td>
+                                    <img src="  {{ $item->profile_photo_path}}"
+                                                            alt="  {{URL::asset($item->profile_photo_path) }}"
+                                                            class="img-tumbnail" width="100" height="100">
+
+                                </td> --}}
                                 <td>
                                     <div class="container">
                                         <div class="row">

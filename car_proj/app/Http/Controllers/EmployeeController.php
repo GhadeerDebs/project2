@@ -56,27 +56,22 @@ class EmployeeController extends Controller
 
     public function store_e(Request $request)
     {
-
-
-
-
-
         $user = Auth::user();
         $dealerID = $user->dealership_id;
         $type = $user->type;
         if ($type == 'employee') {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
+            $request->validate([
+                'name' => ['required', 'alpha', 'max:255'],
                 'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
                 'phone' => ['required', 'digits:10'],
-                'photo' => 'required|image',
+                //'photo' => 'required|image',
             ]);
             $employee = 'employee';
 
-            $photo =  $request->file('photo');
-            $newphoto = time() . $photo->getClientOriginalName();
-            $photo->move('emp', $newphoto);
+            // $photo =  $request->file('photo');
+            // $newphoto = time() . $photo->getClientOriginalName();
+            // $photo->move('emp', $newphoto);
 
             $user = User::create([
                 'name' => $request->name,
@@ -85,36 +80,36 @@ class EmployeeController extends Controller
                 'password' => Hash::make($request->password),
                 'type' => $employee,
                 'dealership_id' => $dealerID,
-                'photo' => 'emp/' . $newphoto
+                // 'profile_photo_path' => 'emp/'. $newphoto
             ]);
         } else {
-            $validator = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:255'],
+            $request->validate([
+                'name' => ['required', 'alpha', 'max:255'],
                 'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
                 'phone' => ['required', 'digits:10'],
-                'photo' => 'required|image',
-                'dealership_id' => 'required',
+                // 'photo' => 'required|image',
+              //  'dealership_id' => 'required',
             ]);
             $employee = 'employee';
 
-            $photo =  $request->file('photo');
-            $newphoto = time() . $photo->getClientOriginalName();
-            $photo->move('emp', $newphoto);
+            // $photo =  $request->file('photo');
+            // $newphoto = time() . $photo->getClientOriginalName();
+            // $photo->move('emp', $newphoto);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'type' => $employee,
-                'photo' => 'emp/' . $newphoto,
+                // 'profile_photo_path' => 'emp/' . $newphoto,
                 'dealership_id' => $request->dealership_id,
             ]);
         }
 
 
 
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>'created successfully']);
     }
 
 
@@ -123,12 +118,12 @@ class EmployeeController extends Controller
     public function store_a(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
+        $this->validate($request, [
+            'name' => ['required', 'alpha', 'max:255'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => ['required', 'string', (new Password)->length(10)->requireNumeric(), 'confirmed'],
             'phone' => ['required', 'digits:10'],
-            'photo' => 'required|image',
+            // 'photo' => 'required|image',
 
         ]);
 
@@ -137,9 +132,9 @@ class EmployeeController extends Controller
         // $newphoto = time() . $photo->getClientOriginalName();
         // $photo->move('admin', $newphoto);
 
-        $photo =  $request->file('photo');
-        $newphoto = time() . $photo->getClientOriginalName();
-        $photo->move('emp', $newphoto);
+        // $photo =  $request->file('photo');
+        // $newphoto = time() . $photo->getClientOriginalName();
+        // $photo->move('emp', $newphoto);
 
 
         $employee = 'admin';
@@ -150,12 +145,12 @@ class EmployeeController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'type' => $employee,
-            'photo' => 'emp/' . $newphoto
+            // 'photo' => 'emp/' . $newphoto
         ]);
 
 
 
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>'created successfully']);
     }
 
     public function edit(User $user)
@@ -173,12 +168,25 @@ class EmployeeController extends Controller
     {
         $user = User::find($user->id);
         if (Auth::user()->type == 'employee') {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|email',
-                // 'type' => 'required'
+            if($user->email==$request->email){
+                $request->validate([
+                    'name' => ['required', 'alpha', 'max:255'],
+                    'email' =>  ['required', 'string', 'email'],
+                    // 'type' => 'required'
 
-            ]);
+
+                ]);
+
+            }else{
+                $request->validate([
+                    'name' => ['required', 'alpha', 'max:255'],
+                    'email' =>  ['required', 'string', 'email', 'unique:users'],
+                    // 'type' => 'required'
+
+
+                ]);
+
+            }
 
             $user->forceFill([
                 'name' =>  $request->name,
@@ -188,17 +196,26 @@ class EmployeeController extends Controller
             ])->save();
         }
         if (Auth::user()->type == 'admin') {
+            if($user->email==$request->email){
+                $this->validate($request, [
+                    'name' => ['required', 'alpha', 'max:255'],
+                    'email' =>  ['required', 'string', 'email:rfc,dns', 'max:255'],
+                    'dealership_id' => 'required',
+                ]);
+            }else{
+                $this->validate($request, [
+                    'name' => ['required', 'alpha', 'max:255'],
+                    'email' =>  ['required', 'string', 'email:rfc,dns', 'max:255','unique:users'],
+                    'dealership_id' => 'required',
 
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|email',
-                'dealership_id' => 'required',
 
+                ]);
+            }
 
-            ]);
             $user->dealership_id = $request->dealership_id;
             $user->name = $request->name;
             $user->email = $request->email;
+
             $user->forceFill([
                 'name' =>  $request->name,
                 'email' => $request->email,
@@ -206,14 +223,21 @@ class EmployeeController extends Controller
                 // 'phone'=> $request->phone,
             ])->save();
         }
+        // if($request->hasFile('photo')){
 
+        //     $photo =  $request->photo;
+        //     $newphoto = time() . $photo->getClientOriginalName();
+        //     $photo->move('emp', $newphoto);
+        //     $user->profile_photo_path= 'emp/' . $newphoto;
+        //     $user->save();
+        // }
         if ($request->has('password')) {
             $user->password = sha1($request->password);
             $user->save();
         }
 
 
-        return redirect()->back();
+        return redirect()->back()->with(['status'=>'updated successfully']);
     }
 
     public function destroy(User $user)

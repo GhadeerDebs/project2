@@ -106,11 +106,10 @@ class AuthController extends Controller
 
             $validator = Validator::make($request->all(),[
 
-            'name'  => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email:rfc,dns', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'name'  => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email:rfc,dns', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-            'phone' => ['nullable', 'digits:10'],
-
+            'phone' => ['required', 'digits:10'],
               ]);
 
         if($validator->fails()){

@@ -47,7 +47,7 @@
                                             @foreach ($images as $image)
                                                 @if ($image->adv_id == $item->id)
                                                     <div class="col">
-                                                        <img src="  {{ $image->advertisement_photo_path }}"
+                                                        <img src="    {{ URL::asset($image->advertisement_photo_path) }}"
                                                             alt="  {{ $item->advertisement_photo_path }}"
                                                             class="img-tumbnail" width="100" height="100">
                                                     </div>

@@ -46,18 +46,17 @@ class AdvertiseController extends Controller
             $dealerID = $user->dealership_id;
             $type = $user->type;
             if ($type == 'employee') {
-                $this->validate($request, [
+                $request->validate([
                     'type'            => 'required',
-                    'engine_capacity' => 'required',
-                    'engine_power'    => 'required',
+                    'engine_capacity' => ['required','numeric'],
+                    'engine_power'    => ['required','numeric'],
                     'drivetrain'      => 'required',
-                    'weight'          => 'required',
+                    'weight'          => ['required','numeric'],
                     'gearbox'         => 'required',
-                    'color'           => 'required',
+                    'color'           => ['required'],
                     'model_id'        => 'required',
                     //'advertisement_photo_path' => 'required|image'
                 ]);
-
                 $ads = ad::create([
                     'type'            => $request->type,
                     'engine_capacity' => $request->engine_capacity,
@@ -73,18 +72,18 @@ class AdvertiseController extends Controller
                 ]);
             }
             if ($type == 'admin') {
-                $this->validate($request, [
+                $request->validate([
                     'type'            => 'required',
-                    'engine_capacity' => 'required',
-                    'engine_power'    => 'required',
+                    'engine_capacity' => ['required','numeric'],
+                    'engine_power'    => ['required','numeric'],
                     'drivetrain'      => 'required',
-                    'weight'          => 'required',
+                    'weight'          => ['required','numeric'],
                     'gearbox'         => 'required',
-                    'color'           => 'required',
+                    'color'           => ['required'],
                     'dealership_id'   => 'required',
                     'model_id'        => 'required',
-                    //'advertisement_photo_path' => 'required|image'
                 ]);
+                    //'advertisement_photo_path' => 'required|image'
 
                 $ads = ad::create([
                     'type'            => $request->type,
@@ -98,7 +97,6 @@ class AdvertiseController extends Controller
                     'model_id'        => $request->model_id,
                     'equipment'       =>$request->equipment,
                     'entertainment_equipment' => $request->entertainment_equipment
-
                 ]);
             }
 
@@ -118,7 +116,7 @@ class AdvertiseController extends Controller
                 );
             }
         }
-            return redirect()->back();
+        return redirect('ads')->with(['status'=>'created successfully']);
 
     }
 
@@ -152,30 +150,30 @@ class AdvertiseController extends Controller
         $dealerID = $user->dealership_id;
         $type = $user->type;
         if ($type == 'employee') {
-            $this->validate($request, [
+            $request->validate( [
                 'type'            => 'required',
-                'engine_capacity' => 'required',
-                'engine_power'    => 'required',
+                'engine_capacity' => ['required','numeric'],
+                'engine_power'    => ['required','numeric'],
                 'drivetrain'      => 'required',
-                'weight'          => 'required',
+                'weight'          => ['required','numeric'],
                 'gearbox'         => 'required',
-                'color'           => 'required',
+                'color'           => ['required'],
                 'model_id'        => 'required',
             ]);
             $ads->dealership_id = $dealerID;
         }
         if ($type == 'admin') {
-            $this->validate($request, [
+            $request->validate( [
                 'type'            => 'required',
-                'engine_capacity' => 'required',
-                'engine_power'    => 'required',
-                'drivetrain'      => 'required',
-                'weight'          => 'required',
-                'gearbox'         => 'required',
-                'color'           => 'required',
-                'dealership_id'   => 'required',
-                'model_id'        => 'required',
-            ]);
+              'engine_capacity' => ['required','numeric'],
+              'engine_power'    => ['required','numeric'],
+              'drivetrain'      => 'required',
+              'weight'          => ['required','numeric'],
+              'gearbox'         => 'required',
+              'color'           => ['required'],
+              'dealership_id'   => 'required',
+              'model_id'        => 'required',
+          ]);
             $ads->dealership_id = $request->dealership_id;
         }
 
@@ -208,7 +206,7 @@ class AdvertiseController extends Controller
         }
         $ads->save();
 
-        return redirect('ads');
+        return redirect('ads')->with(['status'=>'updated successfully']);
     }
 
     public function deleteimage($id)

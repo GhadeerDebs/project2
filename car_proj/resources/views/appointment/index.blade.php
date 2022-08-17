@@ -3,8 +3,17 @@
 
 @section('content')
     @php
+     use Carbon\Carbon;
     $i = 0;
     @endphp
+    <div class="container" style="padding-top: 4%">
+        @if (session('status'))
+        <div class=" alert alert-success" id='box'>
+                {{ session('status') }}
+            </div>
+
+        </div>
+        @endif
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -50,10 +59,14 @@
                             class='btn btn-success'>Edit</button></a>&nbsp;&nbsp";
                              }
                         @endphp --}}
-                        {{-- @if ($item->appoinment_date == date('Y-m-d')) --}}
+                        @php
+                        $n=Carbon::parse($item->start_time )->format("H:i:s");
+                        $cuurent=Carbon::now()->setTimezone("GMT+3")->format("H:i:s");
+                        @endphp
+                        @if ($item->appoinment_date == date('Y-m-d') && (Carbon::parse($n)->gt($cuurent)))
                         <a href="{{ route('appointment.edit', $item->id) }}"><button
                             class='btn btn-success'>Edit</button></a>&nbsp;&nbsp;
-                        {{-- @endif --}}
+                        @endif
                         <form action="{{ route('appointment.destroy', $item->id) }}"
                             onsubmit="return confirm('Are you sure?');" method="POST">
                             @csrf

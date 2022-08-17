@@ -4,6 +4,7 @@
 @section('content')
 @php
 $duration = [15,30,45,60];
+
 @endphp
 <div class="container" style="padding-top: 4%">
 @if (session('status'))
