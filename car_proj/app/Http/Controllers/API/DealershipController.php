@@ -21,7 +21,8 @@ class DealershipController extends Controller{
             $model=$a->model()->get('name');
             $year=$a->year();
             $make=$a->make();
-            $dealer=$a->dealership()->get('name');
+            $dealername=$a->dealership()->get('name');
+            $dealer=$a->dealership()->get('phone');
             $data->push([
                 'id '=> $a->id,
                 'type'=>$a->type,
@@ -34,7 +35,8 @@ class DealershipController extends Controller{
                 'created_at'=>$a->created_at,
                 'updated_at'=>$a->updated_at,
                 'dealership_id'=>$a->dealership_id,
-                'dealership_name'=>$dealer[0]['name'],
+                'dealership_name'=>$dealername[0]['name'],
+                'dealership_phone'=>$dealer[0]['phone'],
                 'equipment' => $a->equipment,
                 'entertainment_equipment' =>$a->entertainment_equipment,
                 'model' => $model[0]['name'],
